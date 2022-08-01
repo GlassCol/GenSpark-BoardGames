@@ -3,7 +3,7 @@ package com.boardgames.piece;
 public class Bishop extends Piece{
     @Override
     public String toString() {
-        return "Pawn";
+        return "Bishop";
     }
 
     @Override
