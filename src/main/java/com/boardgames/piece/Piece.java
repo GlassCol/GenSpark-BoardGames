@@ -7,6 +7,11 @@ public abstract class Piece {
     private int numValue;
     @Override
     public abstract String toString();
+
+    public int getNumValue() {
+        return numValue;
+    }
+
     /**
      * Moves the piece within the game board
      */
