@@ -1,6 +1,8 @@
-package com.boardgames.piece;
+package com.boardgames.piece.chesspiece;
 
-public class Pawn extends Piece{
+import com.boardgames.piece.Piece;
+
+public class Pawn extends Piece {
     @Override
     public String toString() {
         return "Pawn";
