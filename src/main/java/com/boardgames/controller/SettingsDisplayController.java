@@ -32,7 +32,7 @@ public class SettingsDisplayController {
         Stage mainStage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main-menu-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 450, 300);
-        mainStage.setTitle("Bully Conquest");
+        mainStage.setTitle("Board Game");
         mainStage.setScene(scene);
         mainStage.show();
     }
