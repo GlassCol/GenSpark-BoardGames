@@ -3,15 +3,16 @@ package com.boardgames.score;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
+/**/
 public class Score {
 
-    private String playerName;
-    private String opponentName;
-    private boolean isWin;
-    private int[] capturedPieces;
-    private int[] lostPieces;
+    private final String playerName;
+    private final String opponentName;
+    private final boolean isWin;
+    private final int[] capturedPieces;
+    private final int[] lostPieces;
 
-    private LocalDateTime date;
+    private final LocalDateTime date;
     private long totalTime = 0;
     private long startTime = 0;
     private long endTime = 0;
