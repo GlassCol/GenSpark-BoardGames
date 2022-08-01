@@ -5,4 +5,6 @@ module com.boardgames.genspark_group_boardgames {
 
     opens com.boardgames to javafx.fxml;
     exports com.boardgames;
+    exports com.boardgames.controller;
+    opens com.boardgames.controller to javafx.fxml;
 }

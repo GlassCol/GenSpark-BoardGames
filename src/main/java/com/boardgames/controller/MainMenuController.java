@@ -1,4 +1,4 @@
-package com.boardgames;
+package com.boardgames.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
