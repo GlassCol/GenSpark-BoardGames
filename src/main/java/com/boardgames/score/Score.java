@@ -3,16 +3,16 @@ package com.boardgames.score;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
-/**/
+
 public class Score {
 
-    private final String playerName;
-    private final String opponentName;
-    private final boolean isWin;
-    private final int[] capturedPieces;
-    private final int[] lostPieces;
+    private String playerName;
+    private String opponentName = "";
+    private boolean isWin;
+    private int[] capturedPieces = new int[16];
+    private int[] lostPieces = new int[16];
 
-    private final LocalDateTime date;
+    private LocalDateTime date;
     private long totalTime = 0;
     private long startTime = 0;
     private long endTime = 0;
@@ -20,15 +20,17 @@ public class Score {
 
     // CONSTRUCTORS
 
-    Score(String playerName, String opponentName, boolean isWin, int[] capturedPieces, int[] lostPieces) {
+
+    Score(String playerName) {
         this.playerName = playerName;
-        this.opponentName = opponentName;
-        this.isWin = isWin;
-        this.capturedPieces = capturedPieces;
-        this.lostPieces = lostPieces;
-        this.date = LocalDateTime.now();
     }
 
+    Score(String playerName, String opponentName) {
+        this.playerName = playerName;
+        this.opponentName = opponentName;
+    }
+
+    /* use this constructor for existing data */
     Score(String playerName, String opponentName, boolean isWin, int[] capturedPieces, int[] lostPieces,
           LocalDateTime date, long totalTime, long startTime, long endTime, long gameTime) {
         this.playerName = playerName;
@@ -84,6 +86,14 @@ public class Score {
     public long getGameTime() {
         return gameTime;
     }
+
+
+    // SETTERS
+
+    public void setPlayerName(String playerName) { this.playerName = playerName; }
+    public void setOpponentName(String opponentName) { this.opponentName = opponentName; }
+
+
 
     @Override
     public String toString() {
