@@ -1,0 +1,112 @@
+package com.boardgames.score;
+
+import com.boardgames.piece.Piece;
+
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+
+public class Score {
+
+    private String playerName;
+    private String opponentName = "";
+    private boolean isWin = false;
+    private int[] capturedPieces = new int[16];
+    private int[] lostPieces = new int[16];
+
+    private LocalDateTime date = LocalDateTime.now();
+    private long startTime = 0;
+    private long endTime = 0;
+    private long gameTime = 0;
+
+    // CONSTRUCTORS
+
+
+    Score(String playerName) { this.playerName = playerName; }
+    Score(String playerName, String opponentName) {
+        this.playerName = playerName;
+        this.opponentName = opponentName;
+    }
+
+    /* use this constructor for existing data */
+    Score(String playerName, String opponentName, boolean isWin, int[] capturedPieces, int[] lostPieces,
+          LocalDateTime date, long totalTime, long startTime, long endTime, long gameTime) {
+        this.playerName = playerName;
+        this.opponentName = opponentName;
+        this.isWin = isWin;
+        this.capturedPieces = capturedPieces;
+        this.lostPieces = lostPieces;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.gameTime = gameTime;
+    }
+
+    /*
+     * Initialize the arrays for game pieces with -1 index
+     * a -1 value indicates empty while positive ints will represent the identity of the piece, e.g. 1's = pawn, 2's = rook
+     * */
+    private void fillTheArray(int[] array) {
+        this.capturedPieces = IntStream.range(0, array.length)
+                .mapToObj(num -> "-1")
+                .mapToInt(Integer::parseInt)
+                .toArray();
+    }
+
+    // GETTERS
+
+    public String getPlayerName() {
+        return this.playerName;
+    }
+    public String getOpponentName() {
+        return this.opponentName;
+    }
+    public boolean getIsWin() {
+        return this.isWin;
+    }
+    public int[] getCapturedPieces() {
+        return capturedPieces;
+    }
+    public int[] getLostPieces() {
+        return lostPieces;
+    }
+    public LocalDateTime getDate() {
+        return this.date;
+    }
+    public long getStartTime() {
+        return startTime;
+    }
+    public long getEndTime() {
+        return endTime;
+    }
+    public long getGameTime() {
+        return gameTime;
+    }
+
+
+    // SETTERS
+
+    public void setPlayerName(String playerName) { this.playerName = playerName; }
+    public void setOpponentName(String opponentName) { this.opponentName = opponentName; }
+    public void isWin() { this.isWin = this.isWin ? true : false; }
+    public void addNext(int pieceId, int[] array) {}
+    public void setDate(LocalDateTime localDateTime) { this.date = localDateTime; }
+    public void setStartTime(long startTime) { this.startTime = startTime; }
+    public void setEndTime(long endTime) { this.endTime = endTime; }
+    private void setGameTime() { this.gameTime = this.endTime = this.startTime; }
+
+    @Override
+    public String toString() {
+        return "playerName='" + playerName + '\'' +
+                ", opponentName='" + opponentName + '\'' +
+                ", isWin=" + isWin +
+                ", capturedPieces=" + Arrays.toString(capturedPieces) +
+                ", lostPieces=" + Arrays.toString(lostPieces) +
+                ", date=" + date +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", gameTime=" + gameTime;
+    }
+}
