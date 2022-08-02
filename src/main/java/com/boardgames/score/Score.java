@@ -1,11 +1,8 @@
 package com.boardgames.score;
 
-import com.boardgames.piece.Piece;
-
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 
 public class Score {
@@ -13,8 +10,8 @@ public class Score {
     private String playerName;
     private String opponentName = "";
     private boolean isWin = false;
-    private int[] capturedPieces = new int[16];
-    private int[] lostPieces = new int[16];
+    private int[] capturedPieces;
+    private int[] lostPieces;
 
     private LocalDateTime date = LocalDateTime.now();
     private long startTime = 0;
@@ -24,14 +21,19 @@ public class Score {
     // CONSTRUCTORS
 
 
-    Score(String playerName) { this.playerName = playerName; }
-    Score(String playerName, String opponentName) {
+    public Score(String playerName) {
+        this.playerName = playerName;
+        this.capturedPieces = fillTheArray();
+        this.lostPieces = fillTheArray();
+    }
+
+    public Score(String playerName, String opponentName) {
         this.playerName = playerName;
         this.opponentName = opponentName;
     }
 
     /* use this constructor for existing data */
-    Score(String playerName, String opponentName, boolean isWin, int[] capturedPieces, int[] lostPieces,
+    public Score(String playerName, String opponentName, boolean isWin, int[] capturedPieces, int[] lostPieces,
           LocalDateTime date, long totalTime, long startTime, long endTime, long gameTime) {
         this.playerName = playerName;
         this.opponentName = opponentName;
@@ -48,8 +50,8 @@ public class Score {
      * Initialize the arrays for game pieces with -1 index
      * a -1 value indicates empty while positive ints will represent the identity of the piece, e.g. 1's = pawn, 2's = rook
      * */
-    private void fillTheArray(int[] array) {
-        this.capturedPieces = IntStream.range(0, array.length)
+    private int[] fillTheArray() {
+        return IntStream.range(0, 16)
                 .mapToObj(num -> "-1")
                 .mapToInt(Integer::parseInt)
                 .toArray();
