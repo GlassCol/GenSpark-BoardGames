@@ -1,9 +1,12 @@
 package com.boardgames.controller;
 
 import com.boardgames.Tile;
+import com.boardgames.piece.Piece;
+import com.boardgames.piece.chesspiece.Knight;
+import com.boardgames.piece.chesspiece.Rook;
 
 /**
- * Class to handle any utility for the Chess game and store the current game state of a chess game
+ * Class to handle any utility for the Chess game and store the current game of a chess game
  *
  * @author Cole Glass
  */
@@ -15,7 +18,10 @@ public class ChessController {
      * @return gameBoard : Tile[][] the initialized gameBoard
      */
     public static Tile[][] initializeGameBoard(){
-
+        Piece blackRook = new Rook();
+        Piece blackKnight = new Knight();
+        gameBoard[0][0].getPieceList().add(blackRook);
+        gameBoard[1][0].getPieceList().add(blackKnight);
         return gameBoard;
     }
 
