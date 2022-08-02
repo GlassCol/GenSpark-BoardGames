@@ -1,19 +1,22 @@
 package com.boardgames.score;
 
+import com.boardgames.piece.Piece;
+
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 
 public class Score {
 
     private String playerName;
     private String opponentName = "";
-    private boolean isWin;
+    private boolean isWin = false;
     private int[] capturedPieces = new int[16];
     private int[] lostPieces = new int[16];
 
-    private LocalDateTime date;
-    private long totalTime = 0;
+    private LocalDateTime date = LocalDateTime.now();
     private long startTime = 0;
     private long endTime = 0;
     private long gameTime = 0;
@@ -21,10 +24,7 @@ public class Score {
     // CONSTRUCTORS
 
 
-    Score(String playerName) {
-        this.playerName = playerName;
-    }
-
+    Score(String playerName) { this.playerName = playerName; }
     Score(String playerName, String opponentName) {
         this.playerName = playerName;
         this.opponentName = opponentName;
@@ -39,10 +39,20 @@ public class Score {
         this.capturedPieces = capturedPieces;
         this.lostPieces = lostPieces;
         this.date = date;
-        this.totalTime = totalTime;
         this.startTime = startTime;
         this.endTime = endTime;
         this.gameTime = gameTime;
+    }
+
+    /*
+     * Initialize the arrays for game pieces with -1 index
+     * a -1 value indicates empty while positive ints will represent the identity of the piece, e.g. 1's = pawn, 2's = rook
+     * */
+    private void fillTheArray(int[] array) {
+        this.capturedPieces = IntStream.range(0, array.length)
+                .mapToObj(num -> "-1")
+                .mapToInt(Integer::parseInt)
+                .toArray();
     }
 
     // GETTERS
@@ -50,39 +60,27 @@ public class Score {
     public String getPlayerName() {
         return this.playerName;
     }
-
     public String getOpponentName() {
         return this.opponentName;
     }
-
     public boolean getIsWin() {
         return this.isWin;
     }
-
     public int[] getCapturedPieces() {
         return capturedPieces;
     }
-
     public int[] getLostPieces() {
         return lostPieces;
     }
-
     public LocalDateTime getDate() {
         return this.date;
     }
-
-    public long getTotalTime() {
-        return this.totalTime;
-    }
-
     public long getStartTime() {
         return startTime;
     }
-
     public long getEndTime() {
         return endTime;
     }
-
     public long getGameTime() {
         return gameTime;
     }
@@ -92,8 +90,12 @@ public class Score {
 
     public void setPlayerName(String playerName) { this.playerName = playerName; }
     public void setOpponentName(String opponentName) { this.opponentName = opponentName; }
-
-
+    public void isWin() { this.isWin = this.isWin ? true : false; }
+    public void addNext(int pieceId, int[] array) {}
+    public void setDate(LocalDateTime localDateTime) { this.date = localDateTime; }
+    public void setStartTime(long startTime) { this.startTime = startTime; }
+    public void setEndTime(long endTime) { this.endTime = endTime; }
+    private void setGameTime() { this.gameTime = this.endTime = this.startTime; }
 
     @Override
     public String toString() {
@@ -103,7 +105,6 @@ public class Score {
                 ", capturedPieces=" + Arrays.toString(capturedPieces) +
                 ", lostPieces=" + Arrays.toString(lostPieces) +
                 ", date=" + date +
-                ", totalTime=" + totalTime +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 ", gameTime=" + gameTime;

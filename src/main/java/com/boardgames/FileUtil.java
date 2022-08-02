@@ -20,6 +20,7 @@ public class FileUtil {
         }
     }
 
+
     public static String readAFile(String fileName) {
         StringBuilder data =  new StringBuilder();;
 

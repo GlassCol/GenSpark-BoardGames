@@ -17,8 +17,8 @@ public class ScoreCard {
     // During a typical game
     // 1. requires the data of player 1
     // 2. requires the data of player 2
-    // 3. requires a new score instance to keep alive new data for player 1
-    // 4. requires a new score instance to keep alive new data for player 2
+    // 3. requires a new score instance to keep alive new data for player 1 (for game setup)
+    // 4. requires a new score instance to keep alive new data for player 2 (for game setup)
     // 5. at end of the game, score the outcome
     // 6. at the end of the game, write scores to a file
     // 7. during the game, add pieces to captured pieces array
@@ -28,6 +28,8 @@ public class ScoreCard {
     // 11. during the game, show the current game time
     // 12. during the game, while pause, turn the timer off or on
     // 13. during the game, show the players name
+    // 14. at end of the game, format game data for writing
+    // 15. on game start, read data from existing game score file
 
 
     ScoreCard() {}
