@@ -102,9 +102,18 @@ public class MainMenuController {
 
     // START GAME VIEW
 
-    private void gameView() {
-        // add game view code here
+    private void chessView() {
+        // todo - person working on chess
     }
+
+    private void checkerView() {
+        // todo - person working on checker
+    }
+
+    private void scoreCardView() {
+        // todo - person working on score
+    }
+
 
     // SETTINGS
 
