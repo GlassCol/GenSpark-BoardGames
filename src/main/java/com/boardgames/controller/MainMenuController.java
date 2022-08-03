@@ -63,11 +63,14 @@ public class MainMenuController {
         vBox.setPrefHeight(300);
         vBox.setPrefHeight(450);
 
+        // set font
         Font font = new Font("Engravers MT", 36);
+
+        // create label and add the font
         Label label = new Label("Main Menu");
         label.setFont(font);
 
-        // add the node elements to the scene
+        // add the node elements as nodes / children on the vbox container
         vBox.getChildren().add(label);
         vBox.getChildren().add(menuRouteButton(ViewOption.START_GAME, "Start Game",  "stylesheet.css"));
         vBox.getChildren().add(menuRouteButton(ViewOption.SETTINGS, "Settings",  "stylesheet.css"));

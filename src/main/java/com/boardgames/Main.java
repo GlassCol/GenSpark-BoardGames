@@ -14,7 +14,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         // pass the stage object into the main controller
-        // so other controllers have access to the stage instance
+        // so other controllers have access to this stage instance - if required
         MainMenuController MMController = new MainMenuController(stage);
     }
 
