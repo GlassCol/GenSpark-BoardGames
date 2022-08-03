@@ -46,10 +46,14 @@ public class ScoreCard {
         return "";
     }
 
+    public ArrayList<Score> getCurrentScores() { return this.currentScores; }
+
     // validate score instances being added
+    // load old records
+    // load new score
     public void add(Score score) {
         if (score != null) {
-            scoreHistory.add(score);
+            currentScores.add(score);
         }
     }
 

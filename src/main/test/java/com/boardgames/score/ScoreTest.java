@@ -29,8 +29,8 @@ public class ScoreTest {
     @DisplayName("Should fill captured array with -1")
     @Test
     void fillTheArrayTest() {
-        int[] testArray = score.getCapturedPieces();
         int[] testElement = new int[]{-1};
+        int[] testArray = score.getCapturedPieces();
         int actual = (int) Arrays.stream(testArray)
                 .mapToObj(Objects::toString)
                 .filter(ele -> ele.equals("-1"))

@@ -20,7 +20,6 @@ public class Score {
 
     // CONSTRUCTORS
 
-
     public Score(String playerName) {
         this.playerName = playerName;
         this.capturedPieces = fillTheArray();

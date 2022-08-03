@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<!--<?import javafx.scene.control.*?>-->
+<!--<?import javafx.scene.layout.*?>-->
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="450.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.boardgames.controller.SettingsDisplayController">
-   <children>
-      <Label layoutX="127.0" layoutY="32.0" text="Number of Players" />
-      <Slider id="numberOfPlayersSlider" fx:id="numberOfPlayersSlider" layoutX="157.0" layoutY="68.0" max="2.0" min="1.0" showTickLabels="true" value="1.0" />
-      <Label layoutX="123.0" layoutY="127.0" text="Game Being Played" />
-      <RadioButton id="chessButton" fx:id="chessButton" layoutX="131.0" layoutY="170.0" mnemonicParsing="false" selected="true" text="Chess">
-         <toggleGroup>
-            <ToggleGroup fx:id="Game" />
-         </toggleGroup>
-      </RadioButton>
-      <RadioButton id="checkersButton" fx:id="checkersButton" layoutX="263.0" layoutY="170.0" mnemonicParsing="false" text="Checkers" toggleGroup="$Game" />
-      <Button id="mainButton" fx:id="mainButton" layoutX="198.0" layoutY="235.0" mnemonicParsing="false" onAction="#backToMain" text="Main" />
-   </children>
-</AnchorPane>
+<!--<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="450.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.boardgames.controller.SettingsDisplayController">-->
+<!--   <children>-->
+<!--      <Label layoutX="127.0" layoutY="32.0" text="Number of Players" />-->
+<!--      <Slider id="numberOfPlayersSlider" fx:id="numberOfPlayersSlider" layoutX="157.0" layoutY="68.0" max="2.0" min="1.0" showTickLabels="true" value="1.0" />-->
+<!--      <Label layoutX="123.0" layoutY="127.0" text="Game Being Played" />-->
+<!--      <RadioButton id="chessButton" fx:id="chessButton" layoutX="131.0" layoutY="170.0" mnemonicParsing="false" selected="true" text="Chess">-->
+<!--         <toggleGroup>-->
+<!--            <ToggleGroup fx:id="Game" />-->
+<!--         </toggleGroup>-->
+<!--      </RadioButton>-->
+<!--      <RadioButton id="checkersButton" fx:id="checkersButton" layoutX="263.0" layoutY="170.0" mnemonicParsing="false" text="Checkers" toggleGroup="$Game" />-->
+<!--      <Button id="mainButton" fx:id="mainButton" layoutX="198.0" layoutY="235.0" mnemonicParsing="false" onAction="#backToMain" text="Main" />-->
+<!--   </children>-->
+<!--</AnchorPane>-->
