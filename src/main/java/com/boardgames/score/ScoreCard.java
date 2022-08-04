@@ -3,7 +3,9 @@ package com.boardgames.score;
 import com.boardgames.FileUtil;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ScoreCard {
 
@@ -22,8 +24,6 @@ public class ScoreCard {
     // During a typical game
     // 1. requires the data of player 1
     // 2. requires the data of player 2
-    // 3. requires a new score instance to keep alive new data for player 1 (for game setup)
-    // 4. requires a new score instance to keep alive new data for player 2 (for game setup)
     // 5. at end of the game, score the outcome
     // 6. at the end of the game, write scores to a file
     // 7. during the game, add pieces to captured pieces array
@@ -37,18 +37,30 @@ public class ScoreCard {
     // 15. on game start, read data from existing game score file
 
 
-    public ScoreCard() {}
+    public ScoreCard() {
+        // read the score data from file
+        String data = readScores();
+        // convert the record to a Score object
+        // add the score data to the score history
+        addStringDataToScoreHistory(data);
+    }
 
     // PUBLIC METHODS
 
-    public String getScoreHistoryBy(int index) {
-        return scoreHistory.get(index).toString();
+    public ArrayList<Score> getScoreHistory() {
+        return scoreHistory;
     }
 
-    public String getScoreHistoryBy(String name) {
+    public Score getScoreHistoryBy(int index) {
+        return scoreHistory.get(index);
+    }
+
+    public Score getScoreHistoryBy(String name) {
         int index = scoreHistory.indexOf(name);
-        if (index >= 0) { return scoreHistory.get(index).toString(); }
-        return "";
+        if (index >= 0) {
+            return scoreHistory.get(index);
+        }
+        return scoreHistory.get(index);
     }
 
     public Score getPlayer1() { return this.player1; }
@@ -60,10 +72,59 @@ public class ScoreCard {
         }
     }
 
-    public String stringToScore() {
+    // converts the string data into a score object
+    private void addStringDataToScoreHistory(String data) {
+        Score score;
+        String[] scoreRecords = data.split("\n");
 
-        return "";
+        for (String row : scoreRecords) {
+            String[] lineParts = row.split(";");
+            score = new Score("");
+
+            for (String lp : lineParts) {
+                String[] parts = lp.split("=");
+
+                if (parts[0].equals("playerName")) {
+                    score = new Score(parts[1]);
+                }
+                else if (parts[0].equals("opponentName")) {
+                    score.setOpponentName(parts[1]);
+                }
+                else if (parts[0].equals("isWin")) {
+                    score.isWin();
+                }
+                else if (parts[0].equals("capturedPieces")) {
+                    int[] temp = removeArrayCharacters(parts[1]);
+                    score.setCapturedPieces(temp);
+                }
+                else if (parts[0].equals("lostPieces")) {
+                    score.setLostPieces(removeArrayCharacters(parts[1]));
+                }
+                else if (parts[0].equals("date")) {
+                    score.setDate(LocalDateTime.parse(parts[1]));
+                }
+                else if (parts[0].equals("startTime")) {
+                    score.setStartTime(Long.parseLong(parts[1]));
+                }
+                else if (parts[0].equals("endTime")) {
+                    score.setEndTime(Long.parseLong(parts[1]));
+                }
+            }
+            this.scoreHistory.add(score);
+        }
     }
+
+    // removes the brackets and commas generated from the Arrays.toString() method
+    private int[] removeArrayCharacters(String strData) {
+        return Arrays.stream(strData.split(","))
+                .map(e -> e.replace("[", "")
+                        .replace("]", "")
+                        .replace(",", "")
+                        .trim())
+                .mapToInt(Integer::parseInt)
+                .toArray();
+    }
+
 
     public boolean delete(Score score) {
         return scoreHistory.remove(score);
@@ -91,11 +152,11 @@ public class ScoreCard {
         return Path.of(fileName).toAbsolutePath().toString();
     }
 
-    public void writeScoreToFile(String data) {
+    public void writeScores(String data) {
         FileUtil.writeToAFile(data, getScoreFilePath());
     }
 
-    public String readScoreFromAFile() {
+    public String readScores() {
         return FileUtil.readAFile(getScoreFilePath());
     }
 

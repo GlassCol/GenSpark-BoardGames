@@ -1,1 +1,0 @@
-playerName='alice', opponentName='', isWin=false, capturedPieces=[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1], lostPieces=[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1], date=2022-08-04T08:39:48.567230600, startTime=0, endTime=0, gameTime=0

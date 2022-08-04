@@ -75,6 +75,7 @@ public class ScoreCardController {
 //        GridPane gridPane = new GridPane();
 
 //        gridPane.setGridLinesVisible(true);
+
         gridPane.setLayoutX(225);
         gridPane.setLayoutY(0);
         gridPane.setPrefWidth(300);

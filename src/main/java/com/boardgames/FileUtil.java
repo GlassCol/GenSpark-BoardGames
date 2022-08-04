@@ -15,6 +15,8 @@ public class FileUtil {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(file.getAbsolutePath(), append);
             fileOutputStream.write(data.getBytes());
+            fileOutputStream.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -34,6 +36,7 @@ public class FileUtil {
                 data.append((char) byteData);
             }
 
+            fileInputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

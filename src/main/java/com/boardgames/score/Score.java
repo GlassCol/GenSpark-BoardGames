@@ -20,8 +20,12 @@ public class Score {
 
     // CONSTRUCTORS
 
+    public Score(Score score) {
+        this(score.playerName, score.opponentName);}
+
     public Score(String playerName) {
         this.playerName = playerName;
+        this.opponentName = opponentName;
         this.capturedPieces = fillTheArray();
         this.lostPieces = fillTheArray();
     }
@@ -29,6 +33,8 @@ public class Score {
     public Score(String playerName, String opponentName) {
         this.playerName = playerName;
         this.opponentName = opponentName;
+        this.capturedPieces = fillTheArray();
+        this.lostPieces = fillTheArray();
     }
 
     /* use this constructor for existing data */
@@ -92,6 +98,8 @@ public class Score {
     public void setPlayerName(String playerName) { this.playerName = playerName; }
     public void setOpponentName(String opponentName) { this.opponentName = opponentName; }
     public void isWin() { this.isWin = this.isWin ? true : false; }
+    public void setCapturedPieces(int[] capturedPieces) { this.capturedPieces = capturedPieces;}
+    public void setLostPieces(int[] lostPieces) { this.lostPieces = lostPieces;}
     public void addNext(int pieceId, int[] array) {}
     public void setDate(LocalDateTime localDateTime) { this.date = localDateTime; }
     public void setStartTime(long startTime) { this.startTime = startTime; }
@@ -100,14 +108,14 @@ public class Score {
 
     @Override
     public String toString() {
-        return "playerName='" + playerName + '\'' +
-                ", opponentName='" + opponentName + '\'' +
-                ", isWin=" + isWin +
-                ", capturedPieces=" + Arrays.toString(capturedPieces) +
-                ", lostPieces=" + Arrays.toString(lostPieces) +
-                ", date=" + date +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
-                ", gameTime=" + gameTime + "\n";
+        return "playerName=" + playerName + ";" +
+                "opponentName=" + opponentName + ";" +
+                "isWin=" + isWin + ";" +
+                "capturedPieces=" + Arrays.toString(capturedPieces) + ";" +
+                "lostPieces=" + Arrays.toString(lostPieces) + ";" +
+                "date=" + date + ";" +
+                "startTime=" + startTime + ";" +
+                "endTime=" + endTime + ";" +
+                "gameTime=" + gameTime + ";\n";
     }
 }
