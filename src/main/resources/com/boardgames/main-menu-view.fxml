@@ -14,7 +14,7 @@
          <Font name="Engravers MT" size="36.0" />
       </font>
    </Label>
-    <Button id="startGameButton" fx:id="startGameButton" prefHeight="41.0" prefWidth="120.0" text="Start Game" VBox.vgrow="ALWAYS" />
+    <Button id="startGameButton" fx:id="startGameButton"  onAction="#onStartGameButton" prefHeight="41.0" prefWidth="120.0" text="Start Game" VBox.vgrow="ALWAYS" />
    <Button id="settingsButton" fx:id="settingsButton" mnemonicParsing="false" onAction="#onSettingsButtonClick" prefHeight="41.0" prefWidth="120.0" text="Settings" VBox.vgrow="ALWAYS" />
    <Button id="exitButton" mnemonicParsing="false" onAction="#onExitButtonClick" prefHeight="41.0" prefWidth="119.0" text="Exit" VBox.vgrow="ALWAYS" />
 </VBox>

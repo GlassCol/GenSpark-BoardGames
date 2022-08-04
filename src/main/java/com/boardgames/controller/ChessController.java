@@ -4,6 +4,9 @@ import com.boardgames.Tile;
 import com.boardgames.piece.Piece;
 import com.boardgames.piece.chesspiece.Knight;
 import com.boardgames.piece.chesspiece.Rook;
+import com.boardgames.score.Score;
+import javafx.fxml.FXML;
+import javafx.scene.layout.GridPane;
 
 /**
  * Class to handle any utility for the Chess game and store the current game of a chess game
@@ -11,6 +14,7 @@ import com.boardgames.piece.chesspiece.Rook;
  * @author Cole Glass
  */
 public class ChessController {
+
     private static Tile[][] gameBoard = new Tile[8][8];
 
     /**
@@ -28,4 +32,5 @@ public class ChessController {
     public static Tile[][] getGameBoard() {
         return gameBoard;
     }
+
 }

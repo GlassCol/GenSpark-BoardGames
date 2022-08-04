@@ -46,16 +46,20 @@ public class ScoreCard {
         return "";
     }
 
+    public ArrayList<Score> getCurrentScores() { return this.currentScores; }
+
     // validate score instances being added
+    // load old records
+    // load new score
     public void add(Score score) {
         if (score != null) {
-            scoreHistory.add(score);
+            currentScores.add(score);
         }
     }
 
     public boolean delete(Score score) {
-       return scoreHistory.remove(score);
-}
+        return scoreHistory.remove(score);
+    }
 
     public void startTimer() {
         startTime = System.currentTimeMillis();
@@ -75,4 +79,3 @@ public class ScoreCard {
 
 
 }
-
