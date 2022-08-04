@@ -1,5 +1,8 @@
 package com.boardgames.score;
 
+import com.boardgames.FileUtil;
+
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class ScoreCard {
@@ -57,6 +60,11 @@ public class ScoreCard {
         }
     }
 
+    public String stringToScore() {
+
+        return "";
+    }
+
     public boolean delete(Score score) {
         return scoreHistory.remove(score);
     }
@@ -75,6 +83,22 @@ public class ScoreCard {
     public void scoreGame() {
 
     }
+
+    // FILE INPUT OUTPUT
+
+    public String getScoreFilePath() {
+        String fileName = "scores.txt";
+        return Path.of(fileName).toAbsolutePath().toString();
+    }
+
+    public void writeScoreToFile(String data) {
+        FileUtil.writeToAFile(data, getScoreFilePath());
+    }
+
+    public String readScoreFromAFile() {
+        return FileUtil.readAFile(getScoreFilePath());
+    }
+
 
 
 

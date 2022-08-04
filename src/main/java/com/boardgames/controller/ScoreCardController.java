@@ -124,17 +124,5 @@ public class ScoreCardController {
         return gridPane;
     }
 
-    public String getScoreFilePath() {
-        String fileName = "scores.txt";
-        return Path.of(fileName).toAbsolutePath().toString();
-    }
-
-    public void writeScoreToFile(String data) {
-        FileUtil.writeToAFile(data, getScoreFilePath());
-    }
-
-    public String readScoreFromAFile() {
-        return FileUtil.readAFile(getScoreFilePath());
-    }
 
 }
