@@ -44,9 +44,12 @@ public class MainMenuController {
 
         Stage mainStage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("chess-view.fxml"));
-        Parent root = fxmlLoader.load();
 
+        // load the chess-view as the root node
+        Parent root = fxmlLoader.load();
+        // get the current chess-view controller to access its methods
         ChessDisplayController cdController = fxmlLoader.getController();
+        // calls the method belonging to chess display controller to inject the score
         cdController.updateGridPane();
 
         Scene scene = new Scene(root, 450, 300);

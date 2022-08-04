@@ -6,14 +6,14 @@ import javafx.scene.layout.GridPane;
 public class ChessDisplayController {
 
     @FXML
-    private GridPane playerGridPane;
+    private GridPane playerScoreCard;
     @FXML
-    private GridPane opponentGridPane;
+    private GridPane opponentScoreCard;
 
     public void updateGridPane() {
         ScoreCardController scController = new ScoreCardController();
-        playerGridPane = scController.addGridPane(playerGridPane);
-        opponentGridPane = scController.addOpponentGridPane(opponentGridPane);
+        playerScoreCard = scController.addGridPane(playerScoreCard);
+        opponentScoreCard = scController.addOpponentGridPane(opponentScoreCard);
     }
 
 }

@@ -7,7 +7,7 @@
             fx:controller="com.boardgames.controller.ChessDisplayController"
             prefHeight="400.0" prefWidth="600.0">
 
-    <GridPane fx:id="playerGridPane" />
-    <GridPane fx:id="opponentGridPane" />
+    <GridPane fx:id="playerScoreCard" />
+    <GridPane fx:id="opponentScoreCard" />
 
 </AnchorPane>
