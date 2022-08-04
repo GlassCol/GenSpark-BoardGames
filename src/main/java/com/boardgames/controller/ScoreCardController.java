@@ -1,5 +1,7 @@
 package com.boardgames.controller;
 
+import com.boardgames.FileUtil;
+import com.boardgames.score.ScoreCard;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
@@ -7,7 +9,15 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+import java.nio.file.Path;
+
 public class ScoreCardController {
+
+    private ScoreCard sCard;
+
+    public ScoreCardController() {
+        sCard = new ScoreCard();
+    }
 
     public GridPane addGridPane(GridPane gridPane) {
 //        GridPane gridPane = new GridPane();
@@ -112,6 +122,19 @@ public class ScoreCardController {
         gridPane.add(winPercentValue, 0, 2);
 
         return gridPane;
+    }
+
+    public String getScoreFilePath() {
+        String fileName = "scores.txt";
+        return Path.of(fileName).toAbsolutePath().toString();
+    }
+
+    public void writeScoreToFile(String data) {
+        FileUtil.writeToAFile(data, getScoreFilePath());
+    }
+
+    public String readScoreFromAFile() {
+        return FileUtil.readAFile(getScoreFilePath());
     }
 
 }

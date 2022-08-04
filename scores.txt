@@ -1,0 +1,2 @@
+playerName='Alice', opponentName='', isWin=false, capturedPieces=[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1], lostPieces=[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1], date=2022-08-04T08:09:31.271706, startTime=0, endTime=0, gameTime=0
+playerName='Alice', opponentName='', isWin=false, capturedPieces=[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1], lostPieces=[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1], date=2022-08-04T08:09:37.714399300, startTime=0, endTime=0, gameTime=0

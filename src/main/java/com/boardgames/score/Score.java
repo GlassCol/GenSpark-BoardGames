@@ -108,6 +108,6 @@ public class Score {
                 ", date=" + date +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
-                ", gameTime=" + gameTime;
+                ", gameTime=" + gameTime + "\n";
     }
 }

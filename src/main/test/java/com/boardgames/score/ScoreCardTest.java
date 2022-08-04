@@ -1,6 +1,7 @@
 
 package com.boardgames.score;
 
+import com.boardgames.FileUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,8 +31,8 @@ public class ScoreCardTest {
     @Test
     void addTest() {
         scoreCard.add(score);
-        assertEquals(scoreCard.getCurrentScores().get(0), score, "Added score should equal added score");
-
+        assertEquals(scoreCard.getPlayer1(), score, "Added score should equal added score");
     }
+
 
 }

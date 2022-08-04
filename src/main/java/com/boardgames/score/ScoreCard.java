@@ -5,7 +5,9 @@ import java.util.ArrayList;
 public class ScoreCard {
 
     private ArrayList<Score> scoreHistory = new ArrayList<>();
-    private ArrayList<Score> currentScores = new ArrayList<>();
+//    private ArrayList<Score> currentScores = new ArrayList<>();
+    private Score player1;
+    private Score player2;
     private long startTime = 0;
 
     private long endTime = 0;
@@ -32,7 +34,7 @@ public class ScoreCard {
     // 15. on game start, read data from existing game score file
 
 
-    ScoreCard() {}
+    public ScoreCard() {}
 
     // PUBLIC METHODS
 
@@ -46,14 +48,12 @@ public class ScoreCard {
         return "";
     }
 
-    public ArrayList<Score> getCurrentScores() { return this.currentScores; }
+    public Score getPlayer1() { return this.player1; }
+    public Score getPlayer2() { return this.player2; }
 
-    // validate score instances being added
-    // load old records
-    // load new score
     public void add(Score score) {
         if (score != null) {
-            currentScores.add(score);
+            player1 = score;
         }
     }
 
