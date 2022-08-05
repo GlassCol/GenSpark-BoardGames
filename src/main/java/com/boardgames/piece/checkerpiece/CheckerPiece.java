@@ -1,5 +1,6 @@
 package com.boardgames.piece.checkerpiece;
 
+import com.boardgames.Tile;
 import com.boardgames.piece.Piece;
 
 public class CheckerPiece extends Piece {
@@ -9,7 +10,7 @@ public class CheckerPiece extends Piece {
     }
 
     @Override
-    public void move() {
-
+    public boolean move(Tile[][] board, int xPos, int yPos) {
+        return false;
     }
 }
