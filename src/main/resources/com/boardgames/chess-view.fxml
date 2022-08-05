@@ -4,7 +4,9 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.boardgames.controller.ChessDisplayController">
    <right>
-      <StackPane fx:id="scoreBoardStackPane" minHeight="-Infinity" minWidth="100" prefWidth="100" />
+
+      <StackPane fx:id="scoreBoardStackPane" alignment="TOP_RIGHT" minHeight="-Infinity" minWidth="100" prefWidth="100" />
+
    </right>
    <center>
       <GridPane fx:id="boardGridPane" maxHeight="800.0" maxWidth="800.0" prefHeight="800.0" prefWidth="800.0" BorderPane.alignment="CENTER">

@@ -72,7 +72,7 @@ public class ScoreCardTest {
 
     @AfterAll
     static void afterAll() {
-        deleteFile();
+//        deleteFile();
     }
 
     private static void deleteFile() {

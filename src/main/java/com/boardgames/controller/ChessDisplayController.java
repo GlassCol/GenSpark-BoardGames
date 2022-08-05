@@ -21,6 +21,9 @@ public class ChessDisplayController implements Initializable {
     GridPane boardGridPane;
 
     Rectangle[][] board;
+    ScoreCardController scController;
+    final int borderPaneHeight = 800;
+
 
     public void colorBoard() {
         // Declares new board
@@ -52,6 +55,19 @@ public class ChessDisplayController implements Initializable {
 
     }
 
+    public void showGetPlayerNames(StackPane stack) {
+        ScoreCardController scController = new ScoreCardController();
+        GridPane challenger = scController.gridToCollectName("Player 1");
+        GridPane opponent = scController.gridToCollectName("Player 2");
+
+        stack.getChildren().addAll(challenger, opponent);
+
+        int paneSpacing = borderPaneHeight / 2;
+        StackPane.setMargin(challenger, new Insets( 90, 32, 0, 0));
+        StackPane.setMargin(opponent, new Insets( paneSpacing, 32, 100, -50));
+    }
+
+
     public void addScoreBoard(StackPane stack)  {
         ScoreCardController scController = new ScoreCardController();
 
@@ -69,7 +85,8 @@ public class ChessDisplayController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         boardGridPane.setPadding(new Insets(0,0,0,0));
-        addScoreBoard(scoreBoardStackPane);
+//        addScoreBoard(scoreBoardStackPane);
+        showGetPlayerNames(scoreBoardStackPane);
         colorBoard();
     }
 }
