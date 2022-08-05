@@ -28,8 +28,6 @@ class PieceTest {
     void setUp() {
     }
 
-    //TODO Must write tests for checkers pieces & rewrite tests once Board initialization is completed
-
     @Test
     void testToString() {
         Piece king = new King();
@@ -136,5 +134,43 @@ class PieceTest {
         bishop.setXCoordinate(2);
         bishop.setYCoordinate(0);
         assertFalse(bishop.move(board, 3, 0));
+    }
+    @Test
+    void checkerValidTest(){
+        board = new Tile[8][8];
+        checkerPiece.setXCoordinate(0);
+        checkerPiece.setYCoordinate(1);
+        assertTrue(checkerPiece.move(board, 1, 2));
+    }
+    @Test
+    void checkerMoveBackwardsTest(){
+        board = new Tile[8][8];
+        checkerPiece.setXCoordinate(1);
+        checkerPiece.setYCoordinate(2);
+        assertFalse(checkerPiece.move(board, 1, 0));
+    }
+    @Test
+    void checkerNotValidTest(){
+        board = new Tile[8][8];
+        checkerPiece.setXCoordinate(0);
+        checkerPiece.setYCoordinate(1);
+        assertFalse(checkerPiece.move(board, 3, 4));
+    }
+    @Test
+    void checkerTakePieceTest(){
+        board = new Tile[8][8];
+        checkerPiece.setXCoordinate(1);
+        checkerPiece.setYCoordinate(2);
+        CheckerPiece whitePiece = new CheckerPiece();
+        whitePiece.setXCoordinate(2);
+        whitePiece.setYCoordinate(3);
+        assertTrue(checkerPiece.move(board, 3, 4));
+    }
+    @Test
+    void checkersKingMoveBackwardsTest(){
+        board = new Tile[8][8];
+        checkerKing.setXCoordinate(5);
+        checkerKing.setYCoordinate(5);
+        assertTrue(checkerKing.move(board, 4, 4));
     }
 }
