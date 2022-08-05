@@ -1,5 +1,6 @@
 package com.boardgames.piece.chesspiece;
 
+import com.boardgames.Tile;
 import com.boardgames.piece.Piece;
 
 public class Knight extends Piece {
@@ -9,7 +10,7 @@ public class Knight extends Piece {
     }
 
     @Override
-    public void move() {
-
+    public boolean move(Tile[][] board, int xPos, int yPos) {
+        return false;
     }
 }

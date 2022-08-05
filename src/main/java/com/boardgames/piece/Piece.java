@@ -1,5 +1,7 @@
 package com.boardgames.piece;
 
+import com.boardgames.Tile;
+
 /**
  * Abstract class to be used in iteration during game time
  *
@@ -39,6 +41,8 @@ public abstract class Piece {
 
     /**
      * Moves the piece within the game board
+     *
+     * @return
      */
-    public abstract void move();
+    public abstract boolean move(Tile[][] board, int xPos, int yPos);
 }
