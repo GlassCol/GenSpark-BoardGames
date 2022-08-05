@@ -12,6 +12,16 @@ public abstract class Piece {
 
     private int YCoordinate;
     private int numValue;
+    private String color;
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
     @Override
     public abstract String toString();
 
