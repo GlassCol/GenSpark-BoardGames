@@ -12,8 +12,6 @@ import java.io.IOException;
 
 public class MainMenuController {
 
-    ScoreCardController scController;
-
     @FXML
     private Button startGameButton;
     @FXML
