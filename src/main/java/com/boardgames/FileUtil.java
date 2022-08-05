@@ -14,7 +14,6 @@ public class FileUtil {
         if (fileName.exists()) { append = true; }
 
         try {
-            String path = fileName.getAbsolutePath();
             FileOutputStream fileOutputStream = new FileOutputStream(fileName.getAbsolutePath(), append);
             fileOutputStream.write(data.getBytes());
             fileOutputStream.close();
@@ -31,18 +30,18 @@ public class FileUtil {
 
 
     public static String readAFile(File fileName) {
-        StringBuilder data =  new StringBuilder();;
+        String data =  "";
 
         try {
 
             if (fileName.exists()) {
                 FileInputStream fileInputStream = new FileInputStream(fileName.getAbsolutePath());
                 int byteData = fileInputStream.read();
-                data.append((char) byteData);
+                data += (char) byteData;
 
                 while (byteData != -1) {
                     byteData = fileInputStream.read();
-                    data.append((char) byteData);
+                    data += (char) byteData;
                 }
 
                 fileInputStream.close();
@@ -56,7 +55,7 @@ public class FileUtil {
             System.err.println(x);
         }
 
-        return data.toString();
+        return data;
     }
 
 }

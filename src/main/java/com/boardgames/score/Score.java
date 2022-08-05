@@ -39,7 +39,7 @@ public class Score {
 
     /* use this constructor for existing data */
     public Score(String playerName, String opponentName, boolean isWin, int[] capturedPieces, int[] lostPieces,
-                 LocalDateTime date, long totalTime, long startTime, long endTime, long gameTime) {
+                 LocalDateTime date, long startTime, long endTime, long gameTime) {
         this.playerName = playerName;
         this.opponentName = opponentName;
         this.isWin = isWin;
@@ -97,7 +97,7 @@ public class Score {
 
     public void setPlayerName(String playerName) { this.playerName = playerName; }
     public void setOpponentName(String opponentName) { this.opponentName = opponentName; }
-    public void isWin() { this.isWin = this.isWin ? true : false; }
+    public void setIsWin(boolean torf) { this.isWin = torf; }
     public void setCapturedPieces(int[] capturedPieces) { this.capturedPieces = capturedPieces;}
     public void setLostPieces(int[] lostPieces) { this.lostPieces = lostPieces;}
     public void addNext(int pieceId, int[] array) {}
@@ -116,6 +116,6 @@ public class Score {
                 "date=" + date + ";" +
                 "startTime=" + startTime + ";" +
                 "endTime=" + endTime + ";" +
-                "gameTime=" + gameTime + ";\n";
+                "gameTime=" + gameTime + "\n";
     }
 }

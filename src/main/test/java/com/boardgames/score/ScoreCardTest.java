@@ -2,12 +2,9 @@
 package com.boardgames.score;
 
 import org.junit.jupiter.api.*;
-
 import java.io.File;
-
 import java.io.IOException;
 import java.nio.file.*;
-
 
 import static org.junit.jupiter.api.Assertions.*;
 

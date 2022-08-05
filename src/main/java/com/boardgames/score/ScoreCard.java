@@ -42,7 +42,10 @@ public class ScoreCard {
         String data = readScores();
         // convert the record to a Score object
         // add the score data to the score history
-        addStringDataToScoreHistory(data);
+        if (data.length() > 0) {
+            transformToScoreObject(data);
+        }
+
     }
 
     // PUBLIC METHODS
@@ -57,7 +60,7 @@ public class ScoreCard {
 
     public Score getScoreHistoryBy(String name) {
         int index = scoreHistory.indexOf(name);
-        if (index >= 0) {
+        if (index > 0) {
             return scoreHistory.get(index);
         }
         return scoreHistory.get(index);
@@ -72,46 +75,42 @@ public class ScoreCard {
         }
     }
 
-    // converts the string data into a score object
-    private void addStringDataToScoreHistory(String data) {
+    public void transformToScoreObject(String data) {
         Score score;
-        String[] scoreRecords = data.split("\n");
 
-        for (String row : scoreRecords) {
-            String[] lineParts = row.split(";");
-            score = new Score("");
-
-            for (String lp : lineParts) {
-                String[] parts = lp.split("=");
-
-                if (parts[0].equals("playerName")) {
-                    score = new Score(parts[1]);
-                }
-                else if (parts[0].equals("opponentName")) {
-                    score.setOpponentName(parts[1]);
-                }
-                else if (parts[0].equals("isWin")) {
-                    score.isWin();
-                }
-                else if (parts[0].equals("capturedPieces")) {
-                    int[] temp = removeArrayCharacters(parts[1]);
-                    score.setCapturedPieces(temp);
-                }
-                else if (parts[0].equals("lostPieces")) {
-                    score.setLostPieces(removeArrayCharacters(parts[1]));
-                }
-                else if (parts[0].equals("date")) {
-                    score.setDate(LocalDateTime.parse(parts[1]));
-                }
-                else if (parts[0].equals("startTime")) {
-                    score.setStartTime(Long.parseLong(parts[1]));
-                }
-                else if (parts[0].equals("endTime")) {
-                    score.setEndTime(Long.parseLong(parts[1]));
-                }
+        // check if there is data to transform
+        if (data.length() > 0) {
+            data = data.substring(0, data.length()-1); // clean the string data by removing the last element
+            String[] scoreRecords = data.split("\n");
+            for (String row : scoreRecords) {
+                String[] rowParts = row.split(";");
+                score = addStringDataToScoreHistory(rowParts);
+                scoreHistory.add(score);
             }
-            this.scoreHistory.add(score);
         }
+    }
+
+    // converts the string data into a score object
+    private Score addStringDataToScoreHistory(String[] records) {
+        Score score = new Score("");
+
+        for (String lineRecord : records) {
+            String[] linePart = lineRecord.split("=");
+            String title = linePart[0];
+            String value = linePart[1];
+
+            switch (title) {
+                case "playerName" -> score.setPlayerName(value);
+                case "opponentName" -> score.setOpponentName(value);
+                case "isWin" -> score.setIsWin(Boolean.parseBoolean(value));
+                case "capturedPieces" -> score.setCapturedPieces(removeArrayCharacters(value));
+                case "lostPieces" -> score.setLostPieces(removeArrayCharacters(value));
+                case "date" -> score.setDate(LocalDateTime.parse(value));
+                case "startTime" -> score.setStartTime(Long.parseLong(value));
+                case "endTime" -> score.setEndTime(Long.parseLong(value));
+            }
+        }
+        return score;
     }
 
     // removes the brackets and commas generated from the Arrays.toString() method

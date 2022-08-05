@@ -1,15 +1,14 @@
 package com.boardgames.controller;
 
-import com.boardgames.FileUtil;
 import com.boardgames.score.ScoreCard;
-import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-
-import java.nio.file.Path;
 
 public class ScoreCardController {
 
@@ -19,15 +18,16 @@ public class ScoreCardController {
         sCard = new ScoreCard();
     }
 
-    public GridPane addGridPane(GridPane gridPane) {
-//        GridPane gridPane = new GridPane();
+    public GridPane addPlayerGridPane() {
+        GridPane gridPane = new GridPane();
+//        gridPane = new GridPane();
 
 //        gridPane.setGridLinesVisible(true);
         gridPane.setLayoutX(0);
-        gridPane.setLayoutY(0);
-        gridPane.setPrefWidth(300);
-        gridPane.setPrefHeight(180);
-        gridPane.setId("gridPane");
+        gridPane.setLayoutY(100);
+        gridPane.setMaxWidth(507);
+        gridPane.setMaxHeight(300);
+        gridPane.setAlignment(Pos.TOP_RIGHT);
 
         gridPane.setHgap(10);
         gridPane.setHgap(10);
@@ -71,16 +71,14 @@ public class ScoreCardController {
         return gridPane;
     }
 
-    public GridPane addOpponentGridPane(GridPane gridPane) {
-//        GridPane gridPane = new GridPane();
+    public GridPane addOpponentGridPane() {
+        GridPane gridPane = new GridPane();
 
-//        gridPane.setGridLinesVisible(true);
-
-        gridPane.setLayoutX(225);
-        gridPane.setLayoutY(0);
-        gridPane.setPrefWidth(300);
-        gridPane.setPrefHeight(180);
-        gridPane.setId("gridPane");
+        gridPane.setLayoutX(0);
+        gridPane.setLayoutY(300);
+        gridPane.setMaxWidth(507);
+        gridPane.setMaxHeight(300);
+        gridPane.setAlignment(Pos.BOTTOM_RIGHT);
 
         gridPane.setHgap(10);
         gridPane.setHgap(10);
