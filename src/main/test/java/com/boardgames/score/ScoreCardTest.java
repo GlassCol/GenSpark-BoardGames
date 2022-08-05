@@ -42,7 +42,7 @@ public class ScoreCardTest {
     @Test
     void writeScoreToAFileTest() {
         scoreCard.writeScores(score.toString());
-        File file = new File(scoreCard.getScoreFilePath());
+        File file = new File(scoreCard.getScoreFileName().getName());
         assertTrue(file.exists(), "File should exists");
     }
 
@@ -71,10 +71,14 @@ public class ScoreCardTest {
         assertTrue(scoreCard.getScoreHistoryBy(0).getEndTime() >= 0, "End time should be greater than zero");
         assertTrue(scoreCard.getScoreHistoryBy(0).getGameTime() >= 0, "Game time should be greater than zero");
 
+    }
+
+    @AfterAll
+    static void afterAll() {
         deleteFile();
     }
 
-    private void deleteFile() {
+    private static void deleteFile() {
         String path = "scores.txt";
         try {
             Files.delete(Path.of(path));

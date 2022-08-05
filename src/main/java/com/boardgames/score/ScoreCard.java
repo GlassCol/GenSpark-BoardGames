@@ -2,7 +2,7 @@ package com.boardgames.score;
 
 import com.boardgames.FileUtil;
 
-import java.nio.file.Path;
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -147,17 +147,16 @@ public class ScoreCard {
 
     // FILE INPUT OUTPUT
 
-    public String getScoreFilePath() {
-        String fileName = "scores.txt";
-        return Path.of(fileName).toAbsolutePath().toString();
+    public File getScoreFileName() {
+        return new File("scores.txt");
     }
 
     public void writeScores(String data) {
-        FileUtil.writeToAFile(data, getScoreFilePath());
+        FileUtil.writeToAFile(data, getScoreFileName());
     }
 
     public String readScores() {
-        return FileUtil.readAFile(getScoreFilePath());
+        return FileUtil.readAFile(getScoreFileName());
     }
 
 
