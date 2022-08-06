@@ -160,6 +160,7 @@ public class ChessDisplayController implements Initializable {
         colorBoard();
         setUpPieces();
 
+
         ScoreCardController scController = new ScoreCardController();
         scController.showScoreBoard(scoreBoardVBoxPane, boardGridPane.getHeight());
     }
