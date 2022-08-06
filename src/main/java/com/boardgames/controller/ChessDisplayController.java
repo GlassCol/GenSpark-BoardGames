@@ -6,6 +6,7 @@ import com.boardgames.piece.chesspiece.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -33,11 +34,11 @@ public class ChessDisplayController implements Initializable {
      */
     public Tile[][] setUpPieces(){
         setUpPawns();
-        setUpRooks();
-        setUpBishops();
-        setUpKnights();
-        setUpQueens();
-        setUpKings();
+//        setUpRooks();
+//        setUpBishops();
+//        setUpKnights();
+//        setUpQueens();
+//        setUpKings();
         return tileArray;
     }
     /**
@@ -108,11 +109,13 @@ public class ChessDisplayController implements Initializable {
         for (int i = 0; i < 8; i++) {
             Piece pawn = new Pawn();
             pawn.setColor("Black");
+            tileArray[1][i] = new Tile();
             tileArray[1][i].getPieceList().add(pawn);
         }
         for (int i = 0; i < 8; i++) {
             Piece pawn = new Pawn();
             pawn.setColor("White");
+            tileArray[6][i] = new Tile();
             tileArray[6][i].getPieceList().add(pawn);
         }
     }
@@ -154,6 +157,12 @@ public class ChessDisplayController implements Initializable {
         GridPane challenger = scController.gridToCollectName("Player 1");
         GridPane opponent = scController.gridToCollectName("Player 2");
 
+        Button button = (Button) challenger.getChildren().get(challenger.getChildren().size()-1);
+        button.setOnAction(e -> {
+            stack.getChildren().removeAll(challenger, opponent);
+            addScoreBoard(scoreBoardStackPane);
+        });
+
         stack.getChildren().addAll(challenger, opponent);
 
         int paneSpacing = borderPaneHeight / 2;
@@ -161,18 +170,24 @@ public class ChessDisplayController implements Initializable {
         StackPane.setMargin(opponent, new Insets( paneSpacing, 32, 100, -50));
     }
 
+    private void handleSubmitName(String text) {
+        String name = text;
+        System.out.println(name);
+    }
 
     public void addScoreBoard(StackPane stack)  {
         ScoreCardController scController = new ScoreCardController();
+        // find the user by name
+//        Score cScore = findScoreBy()
 
-        GridPane playerGridPane = scController.addPlayerGridPane();
-        GridPane opponentGridPane = scController.addOpponentGridPane();
+        GridPane challenger = scController.addPlayerGridPane();
+        GridPane opponent = scController.addOpponentGridPane();
 
-        stack.getChildren().addAll(playerGridPane, opponentGridPane);
-        // Add offset to right for question mark to compensate for RIGHT
-        // alignment of all nodes
-        StackPane.setMargin(playerGridPane, new Insets(0, 200, 0, 0));
-        StackPane.setMargin(opponentGridPane, new Insets(0, 200, 0, 0));
+        stack.getChildren().addAll(challenger, opponent);
+
+        int paneSpacing = borderPaneHeight / 2;
+        StackPane.setMargin(challenger, new Insets( 90, 32, 0, 0));
+        StackPane.setMargin(opponent, new Insets( paneSpacing, 32, 100, -50));
 
     }
 
@@ -180,8 +195,9 @@ public class ChessDisplayController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         boardGridPane.setPadding(new Insets(0,0,0,0));
         showGetPlayerNames(scoreBoardStackPane);
+//        addScoreBoard(scoreBoardStackPane);
         colorBoard();
-//        setUpPieces();
+        setUpPieces();
     }
 }
 

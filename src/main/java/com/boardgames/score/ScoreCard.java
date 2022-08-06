@@ -6,13 +6,13 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 public class ScoreCard {
 
     private ArrayList<Score> scoreHistory = new ArrayList<>();
 //    private ArrayList<Score> currentScores = new ArrayList<>();
-    private Score player1;
-    private Score player2;
+    private Score[] players = new Score[2];
     private long startTime = 0;
 
     private long endTime = 0;
@@ -36,6 +36,7 @@ public class ScoreCard {
     // 14. at end of the game, format game data for writing
     // 15. on game start, read data from existing game score file
 
+    // CONSTRUCTORS
 
     public ScoreCard() {
         // read the score data from file
@@ -43,39 +44,22 @@ public class ScoreCard {
         // convert the record to a Score object
         // add the score data to the score history
         if (data.length() > 0) {
-            transformToScoreObject(data);
+            dataToScoreHistory(data);
         }
 
     }
 
     // PUBLIC METHODS
 
-    public ArrayList<Score> getScoreHistory() {
-        return scoreHistory;
+    // find all the scores for the user by name
+    public Score[] getScoreHistoryBy(String name) {
+        return scoreHistory.stream()
+                .filter(record -> record.getPlayerName().equals(name))
+                .toArray(Score[]::new);
     }
 
-    public Score getScoreHistoryBy(int index) {
-        return scoreHistory.get(index);
-    }
-
-    public Score getScoreHistoryBy(String name) {
-        int index = scoreHistory.indexOf(name);
-        if (index > 0) {
-            return scoreHistory.get(index);
-        }
-        return scoreHistory.get(index);
-    }
-
-    public Score getPlayer1() { return this.player1; }
-    public Score getPlayer2() { return this.player2; }
-
-    public void add(Score score) {
-        if (score != null) {
-            player1 = score;
-        }
-    }
-
-    public void transformToScoreObject(String data) {
+    // transform string data into score objects and add to score history
+    private void dataToScoreHistory(String data) {
         Score score;
 
         // check if there is data to transform
@@ -84,14 +68,14 @@ public class ScoreCard {
             String[] scoreRecords = data.split("\n");
             for (String row : scoreRecords) {
                 String[] rowParts = row.split(";");
-                score = addStringDataToScoreHistory(rowParts);
+                score = transformToScoreObject(rowParts);
                 scoreHistory.add(score);
             }
         }
     }
 
-    // converts the string data into a score object
-    private Score addStringDataToScoreHistory(String[] records) {
+    // transform each line of the score data into objects
+    private Score transformToScoreObject(String[] records) {
         Score score = new Score("");
 
         for (String lineRecord : records) {
@@ -125,9 +109,8 @@ public class ScoreCard {
     }
 
 
-    public boolean delete(Score score) {
-        return scoreHistory.remove(score);
-    }
+    public void add(Score score) { this.players[0] = score; }
+    public Score[] getPlayers() { return this.players; }
 
     public void startTimer() {
         startTime = System.currentTimeMillis();
@@ -138,6 +121,7 @@ public class ScoreCard {
         elapsedTime = endTime - startTime;
         startTime = 0;
     }
+
 
     // How do we score the game?
     public void scoreGame() {

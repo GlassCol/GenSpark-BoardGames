@@ -32,7 +32,7 @@ public class ScoreCardTest {
     @Test
     void addTest() {
         scoreCard.add(score);
-        assertEquals(scoreCard.getPlayer1(), score, "Added score should equal added score");
+        assertEquals(scoreCard.getPlayers()[0], score, "Added score should equal added score");
     }
 
     @DisplayName("Should write score to a file")
@@ -57,18 +57,24 @@ public class ScoreCardTest {
         scoreCard.writeScores(score.toString());
         scoreCard.writeScores(score.toString());
 
-        assertTrue(scoreCard.getScoreHistory().size() > 0, "Should contain more than zero records");
-        assertFalse(scoreCard.getScoreHistoryBy(0).getPlayerName().isEmpty(), "Player name should not be empty");
-        assertFalse(scoreCard.getScoreHistoryBy(0).getOpponentName().isEmpty(), "Opponent name should not be empty");
-        assertFalse(scoreCard.getScoreHistoryBy(0).getIsWin(), "isWin should be false by default");
-        assertTrue(scoreCard.getScoreHistoryBy(0).getCapturedPieces().length > 0, "Captured pieces should be greater than zero");
-        assertTrue(scoreCard.getScoreHistoryBy(0).getLostPieces().length > 0, "Lost pieces should be greater than zero");
-        assertFalse(scoreCard.getScoreHistoryBy(0).getDate().toString().isEmpty(), "Date should not be empty");
-        assertTrue(scoreCard.getScoreHistoryBy(0).getStartTime() >= 0, "Start time should be greater than zero");
-        assertTrue(scoreCard.getScoreHistoryBy(0).getEndTime() >= 0, "End time should be greater than zero");
-        assertTrue(scoreCard.getScoreHistoryBy(0).getGameTime() >= 0, "Game time should be greater than zero");
-
+        assertTrue(scoreCard.getScoreHistoryBy(score.getPlayerName()).length > 0,
+                "Length should be greater than 0");
+        assertTrue(scoreCard.getScoreHistoryBy(score.getPlayerName())[0] != null,
+                "Object should not be null");
     }
+
+
+    @DisplayName("finds score records by name")
+    @Test
+    void findScoresByNameTest() {
+        Score[] scores = scoreCard.getScoreHistoryBy(score.getPlayerName());
+        if (scores.length > 0) {
+            assertEquals(scores[0].getPlayerName(), score.getPlayerName(), "Should have more than zero records and contain name");
+        }
+    }
+
+
+
 
     @AfterAll
     static void afterAll() {

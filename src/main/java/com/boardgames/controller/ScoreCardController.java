@@ -2,6 +2,7 @@ package com.boardgames.controller;
 
 import com.boardgames.score.Score;
 import com.boardgames.score.ScoreCard;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -22,71 +23,32 @@ public class ScoreCardController {
     }
 
     public GridPane addPlayerGridPane() {
-        GridPane gridPane = new GridPane();
+        GridPane gridPane = createGPane(0, 0, 200, 200, 300, 300);
 
-        Font sans12 = Font.font("Sans Serif", FontWeight.NORMAL, 12);
+        Font sans16B = Font.font("Sans Serif", FontWeight.BOLD, 16);
 
         Text name = new Text("Name");
-        name.setFont(sans12);
+        name.setFont(sans16B);
         gridPane.add(name, 0, 0);
 
         return gridPane;
     }
 
     public GridPane addOpponentGridPane() {
-        GridPane gridPane = new GridPane();
+        GridPane gridPane = createGPane(0, 0, 200, 200, 300, 300);
 
-        gridPane.setLayoutX(0);
-        gridPane.setLayoutY(300);
-        gridPane.setMaxWidth(507);
-        gridPane.setMaxHeight(300);
-        gridPane.setAlignment(Pos.BOTTOM_RIGHT);
-
-        gridPane.setHgap(10);
-        gridPane.setHgap(10);
-        gridPane.setPadding(new Insets(0, 10, 0, 10));
         Font sans16 = Font.font("Sans Serif", FontWeight.BOLD, 16);
-        Font sans12 = Font.font("Sans Serif", FontWeight.NORMAL, 12);
 
         Text name = new Text("Name");
         name.setFont(sans16);
         gridPane.add(name, 6, 0);
-
-        Text win = new Text("Win");
-        win.setFont(sans16);
-        gridPane.add(win, 4, 0);
-
-        Text loss = new Text("Loss");
-        loss.setFont(sans16);
-        gridPane.add(loss, 2, 0);
-
-        Text winPercent = new Text("W%");
-        winPercent.underlineProperty();
-        winPercent.setFont(sans16);
-        gridPane.add(winPercent, 0, 0);
-
-        // values on row 2
-        Text nameValue = new Text("Bob");
-        nameValue.setFont(sans12);
-        gridPane.add(nameValue, 6, 2);
-
-        Text winValue = new Text("5");
-        winValue.setFont(sans12);
-        gridPane.add(winValue, 4, 2);
-
-        Text lossValue = new Text("5");
-        lossValue.setFont(sans12);
-        gridPane.add(lossValue, 2, 2);
-
-        Text winPercentValue = new Text("50%");
-        winPercentValue.setFont(sans12);
-        gridPane.add(winPercentValue, 0, 2);
 
         return gridPane;
     }
 
     public GridPane createGPane(int layoutX, int layoutY, int prefWidth, int prefHeight, int maxWidth, int maxHeight) {
         GridPane gPane = new GridPane();
+
         gPane.setLayoutX(layoutX);
         gPane.setLayoutY(layoutY);
         gPane.setPrefWidth(prefWidth);
@@ -127,5 +89,9 @@ public class ScoreCardController {
         return gridPane;
     }
 
+    public Score[] findScoreBy(String name) {
+        Score[] score = sCard.getScoreHistoryBy(name);
+        return score;
+    }
 
 }
