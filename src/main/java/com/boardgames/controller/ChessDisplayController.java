@@ -6,18 +6,13 @@ import com.boardgames.piece.chesspiece.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class ChessDisplayController implements Initializable {
 
@@ -158,87 +153,15 @@ public class ChessDisplayController implements Initializable {
 
     }
 
-    /**
-     * adds node elements to the vBox container for collecting names
-     * @param vBox
-     */
-    public void showViewToCollectPlayerNames(VBox vBox) {
-        ScoreCardController scController = new ScoreCardController();
-        GridPane challenger = scController.getPaneToCollectNameFor("Player 1");
-        GridPane opponent = scController.getPaneToCollectNameFor("Player 2");
-
-        // set the button actions on each grid pane - requires access to scoreboard fxml field
-        setSubmitActionOn(challenger);
-        setSubmitActionOn(opponent);
-
-        // add all panes to the vBox
-        vBox.getChildren().addAll(challenger, opponent);
-        scController.setVboxProps(vBox, 0, 0,
-                300,
-                boardGridPane.getHeight() - 100,
-                (boardGridPane.getHeight()/2) + 100.0);
-
-    }
-
-    /**
-     * sets the actions of the button node belonging to the grid pane
-     * @param gridPane
-     */
-    private void setSubmitActionOn(GridPane gridPane) {
-        Button button = (Button) gridPane.getChildren().get(gridPane.getChildren().size()-1);
-        button.setOnAction(e -> {
-            showViewScoreBoard(scoreBoardVBoxPane, gridPane);
-        });
-    }
-
-    /**
-     * returns the string value of the text field node of the pane
-     * @param pane
-     * @return String
-     * @param <T> extends Pane
-     */
-    private <T extends Pane> String getTextFieldValueFrom(T pane) {
-        List<Node> nodes = pane.getChildren();
-        return nodes.stream()
-                .filter(node -> node instanceof TextField)
-                .map(node -> ((TextField) node).getText())
-                .collect(Collectors.joining());
-    }
-
-    /**
-     * adds elements to the Vbox container for showing a scorecard belonging to a name
-     * @param vBox
-     * @param gridPane
-     */
-    // displays the view of the user submitting a name
-    public void showViewScoreBoard(VBox vBox, GridPane gridPane)  {
-        ScoreCardController scController = new ScoreCardController();
-
-        // remove existing nodes from vBox when text from
-        String name = getTextFieldValueFrom(gridPane);
-
-        if (!name.isEmpty()) {
-            String id = gridPane.getId(); // get the id before removing grid pane
-            vBox.getChildren().remove(gridPane);  // remove the current grid pane from the vBox
-
-
-            GridPane scoreCard = scController.addScorePaneFor(name, id); // create a new grid pane with id
-            // set the position of the pane
-            if (scoreCard.getId().equals("Player 1")) {
-                vBox.getChildren().add(0, scoreCard);  // add the new grid pane to the vBox
-            } else {
-                vBox.getChildren().add(1, scoreCard);  // add the new grid pane to the vBox
-            }
-        }
-    }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         boardGridPane.setPadding(new Insets(0,0,0,0));
-        showViewToCollectPlayerNames(scoreBoardVBoxPane);
         colorBoard();
         setUpPieces();
+
+        ScoreCardController scController = new ScoreCardController();
+        scController.showScoreBoard(scoreBoardVBoxPane, boardGridPane.getHeight());
     }
 }
 

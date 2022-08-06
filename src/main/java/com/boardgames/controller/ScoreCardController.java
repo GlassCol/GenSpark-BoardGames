@@ -6,8 +6,8 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
@@ -17,6 +17,8 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Scorecard controller for loading existing scores and creating panels for displaying score
@@ -31,11 +33,22 @@ public class ScoreCardController {
     }
 
     // SCORE HELPER METHODS
+
+    /**
+     * finds all the scores belonging to the name
+     * @param name
+     * @return
+     */
     private Score[] findScoresBy(String name) {
         return sCard.getScoreHistoryBy(name);
     }
 
-    // adds score history when it exists for the name
+    /**
+     * adds score history when name of player exists and their accum win loss stats
+     * @param gridPane
+     * @param name
+     * @return
+     */
     private GridPane addScoreTo(GridPane gridPane, String name) {
         Score[] scores = findScoresBy(name);
         double wins = 0, losses = 0, percent = 0;
@@ -74,16 +87,25 @@ public class ScoreCardController {
 
     // END - SCORE HELPER METHODS
 
-    // PANELS FOR VIEW
+    // PANEL VIEW HELPERS
 
-    // configures the panel for displaying the players score
+    /**
+     * creates panel for displaying the players score stats within a scorecard
+     * @param name
+     * @param id
+     * @return Grid Pane
+     */
     public GridPane addScorePaneFor(String name, String id) {
         GridPane gridPane = createGPane(6, 8, 0, 0, 240, 200, 300, 200);
         gridPane.setId(id);
         return addScoreTo(gridPane, name);
     }
 
-    // configures the grid pane for collecting names
+    /**
+     * creates the pane for collecting names
+     * @param textHeading
+     * @return
+     */
     public GridPane getPaneToCollectNameFor(String textHeading) {
         GridPane gridPane = createGPane(6, 8, 0, 0, 240, 200, 300, 200);
         gridPane.setId(textHeading);
@@ -110,12 +132,107 @@ public class ScoreCardController {
         return gridPane;
     }
 
-    // END - PANELS FOR VIEW
+    /**
+     * sets the actions of the button node belonging to the grid pane
+     * @param vBox
+     * @param gridPane
+     */
+    private void setSubmitActionOn(VBox vBox, GridPane gridPane) {
+        Button button = (Button) gridPane.getChildren().get(gridPane.getChildren().size()-1);
+        button.setOnAction(e -> {
+            showScoreBoard(vBox, gridPane);
+        });
+    }
 
+    /**
+     * returns the string value of the text field node of the pane
+     * @param pane
+     * @return String
+     * @param <T> extends Pane
+     */
+    private <T extends Pane> String getTextFieldValueFrom(T pane) {
+        List<Node> nodes = pane.getChildren();
+        return nodes.stream()
+                .filter(node -> node instanceof TextField)
+                .map(node -> ((TextField) node).getText())
+                .collect(Collectors.joining());
+    }
 
-    // PANEL CONFIGS AND SETUP
+    // END - PANEL VIEW HELPERS
 
-    // creates a grid pane
+    // PANEL VIEWS
+
+    /**
+     * adds node elements to the vBox container for collecting names
+     * @param vBox
+     * @param bgPaneHeight
+     */
+    private void showViewToCollectPlayerNames(VBox vBox, double bgPaneHeight) {
+        GridPane challenger = getPaneToCollectNameFor("Player 1");
+        GridPane opponent = getPaneToCollectNameFor("Player 2");
+
+        // set the button actions on each grid pane - requires access to scoreboard fxml field
+        setSubmitActionOn(vBox, challenger);
+        setSubmitActionOn(vBox, opponent);
+
+        // add all panes to the vBox
+        vBox.getChildren().addAll(challenger, opponent);
+        setVboxProps(vBox, 0, 0,
+                300,
+                bgPaneHeight - 100,
+                (bgPaneHeight/2) + 100.0);
+
+    }
+
+    /**
+     * show and adds elements to the Vbox container for a scorecard belonging to a name
+     * @param vBox
+     * @param gridPane
+     */
+    public void showScoreBoard(VBox vBox, GridPane gridPane) {
+        // gets the text value from the text field
+        String name = getTextFieldValueFrom(gridPane);
+
+        if (!name.isEmpty()) {
+            String id = gridPane.getId(); // get the id before removing grid pane
+            vBox.getChildren().remove(gridPane);  // remove the current grid pane from the vBox
+
+            GridPane scoreCard = addScorePaneFor(name, id); // create a new grid pane with id
+            // set the position of the pane
+            if (scoreCard.getId().equals("Player 1")) {
+                vBox.getChildren().add(0, scoreCard);  // add the new grid pane to the vBox
+            } else {
+                vBox.getChildren().add(1, scoreCard);  // add the new grid pane to the vBox
+            }
+        }
+
+    }
+
+    /**
+     * calls the method for showing the view to collect names
+     * @param vBox
+     * @param bgPaneHeight
+     */
+    public void showScoreBoard(VBox vBox, double bgPaneHeight)  {
+        showViewToCollectPlayerNames(vBox, bgPaneHeight);
+    }
+
+    // END - PANEL VIEWS
+
+    // GENERAL PANEL CONFIGS AND SETUP
+
+    /**
+     * create a generic grid pane with col and row constraints
+     * @param cols
+     * @param rows
+     * @param layoutX
+     * @param layoutY
+     * @param prefWidth
+     * @param prefHeight
+     * @param maxWidth
+     * @param maxHeight
+     * @return
+     */
     public GridPane createGPane(int cols, int rows, int layoutX, int layoutY, int prefWidth, int prefHeight, int maxWidth, int maxHeight) {
         GridPane gPane = new GridPane();
 
@@ -137,7 +254,12 @@ public class ScoreCardController {
         return gPane;
     }
 
-    // configures row or column constraints for a grid pane
+    /**
+     * sets general column and row constraints for a grid pane
+     * @param gPane
+     * @param qty
+     * @param isColumn
+     */
     private void addConstraints(GridPane gPane, int qty, boolean isColumn) {
         for (int i = 0; i < qty; i++) {
             if (isColumn) {
@@ -154,7 +276,16 @@ public class ScoreCardController {
         }
     }
 
-    // configures the vBox properties
+    /**
+     * configures the vBox Pane container for the scoreboard view
+     * @param vBox
+     * @param layoutX
+     * @param layoutY
+     * @param prefWidth
+     * @param prefHeight
+     * @param spacing
+     * @return
+     */
     public VBox setVboxProps(VBox vBox, int layoutX, int layoutY, double prefWidth, double prefHeight, double spacing) {
 
 //        Border for debugging
@@ -175,6 +306,8 @@ public class ScoreCardController {
 
         return vBox;
     }
+
+    // GENERAL PANEL CONFIGS AND SETUP
 
     // CONTROL ASSETS
 
