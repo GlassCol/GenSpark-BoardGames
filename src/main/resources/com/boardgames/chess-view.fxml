@@ -2,10 +2,12 @@
 
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.boardgames.controller.ChessDisplayController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="1000" minWidth="1000" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.boardgames.controller.ChessDisplayController">
    <right>
 
-      <StackPane fx:id="scoreBoardStackPane" alignment="TOP_RIGHT" minHeight="-Infinity" minWidth="100" prefWidth="100" />
+      <VBox fx:id="scoreBoardVBoxPane"
+                 BorderPane.alignment="CENTER_RIGHT"
+                 alignment="TOP_RIGHT" />
 
    </right>
    <center>

@@ -3,23 +3,34 @@ package com.boardgames.controller;
 import com.boardgames.Tile;
 import com.boardgames.piece.Piece;
 import com.boardgames.piece.chesspiece.*;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.Control;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class ChessDisplayController implements Initializable {
 
     @FXML
-    StackPane scoreBoardStackPane;
+    BorderPane borderPane;
+
+    @FXML
+    VBox scoreBoardVBoxPane;
 
     @FXML
     GridPane boardGridPane;
@@ -152,22 +163,63 @@ public class ChessDisplayController implements Initializable {
 
     }
 
-    public void showGetPlayerNames(StackPane stack) {
+    // sets up the vBox container for collecting names
+    public void showGetPlayerNames(VBox vBox) {
         ScoreCardController scController = new ScoreCardController();
         GridPane challenger = scController.gridToCollectName("Player 1");
         GridPane opponent = scController.gridToCollectName("Player 2");
 
-        Button button = (Button) challenger.getChildren().get(challenger.getChildren().size()-1);
+        // set the button actions on each grid pane - requires access to scoreboard fxml field
+        setSubmitActionOn(challenger);
+        setSubmitActionOn(opponent);
+
+        // add all panes to the vBox
+        vBox.getChildren().addAll(challenger, opponent);
+        scController.setVboxProps(vBox, 0, 0,
+                300,
+                boardGridPane.getHeight() - 100,
+                (boardGridPane.getHeight()/2) + 100.0);
+
+    }
+
+    // sets the actions on the button node within the grid pane
+    private void setSubmitActionOn(GridPane gridPane) {
+        Button button = (Button) gridPane.getChildren().get(gridPane.getChildren().size()-1);
         button.setOnAction(e -> {
-            stack.getChildren().removeAll(challenger, opponent);
-            addScoreBoard(scoreBoardStackPane);
+            addScoreBoard(scoreBoardVBoxPane, gridPane);
         });
+    }
 
-        stack.getChildren().addAll(challenger, opponent);
+    // returns the string value of the text field node of the pane
+    private <T extends Pane> String getTextFieldValueFrom(T pane) {
+        List<Node> nodes = pane.getChildren();
+        return nodes.stream()
+                .filter(node -> node instanceof TextField)
+                .map(node -> ((TextField) node).getText())
+                .collect(Collectors.joining());
+    }
 
-        int paneSpacing = borderPaneHeight / 2;
-        StackPane.setMargin(challenger, new Insets( 90, 32, 0, 0));
-        StackPane.setMargin(opponent, new Insets( paneSpacing, 32, 100, -50));
+    public void addScoreBoard(VBox stack, GridPane gridPane)  {
+        ScoreCardController scController = new ScoreCardController();
+        double paneSpacing = borderPane.getHeight() / 2;
+
+        // remove existing nodes from stack when text from
+        String textField = getTextFieldValueFrom(gridPane);
+
+        if (!textField.isEmpty()) {
+            String id = gridPane.getId(); // get the id before removing grid pane
+            stack.getChildren().remove(gridPane);  // remove the current grid pane from the stack
+
+            gridPane = scController.addPlayerGridPane(id); // create a new grid pane with id
+            stack.getChildren().add(gridPane);  // add the new grid pane to the stack
+
+            // set the position of the pane
+            if (gridPane.getId().equals("Player 1")) {
+                StackPane.setMargin(gridPane, new Insets( 90, 32, 0, 0));
+            } else {
+                StackPane.setMargin(gridPane, new Insets( paneSpacing - 100, 32, 100, 0));
+            }
+        }
     }
 
     private void handleSubmitName(String text) {
@@ -175,27 +227,13 @@ public class ChessDisplayController implements Initializable {
         System.out.println(name);
     }
 
-    public void addScoreBoard(StackPane stack)  {
-        ScoreCardController scController = new ScoreCardController();
-        // find the user by name
-//        Score cScore = findScoreBy()
 
-        GridPane challenger = scController.addPlayerGridPane();
-        GridPane opponent = scController.addOpponentGridPane();
 
-        stack.getChildren().addAll(challenger, opponent);
-
-        int paneSpacing = borderPaneHeight / 2;
-        StackPane.setMargin(challenger, new Insets( 90, 32, 0, 0));
-        StackPane.setMargin(opponent, new Insets( paneSpacing, 32, 100, -50));
-
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         boardGridPane.setPadding(new Insets(0,0,0,0));
-        showGetPlayerNames(scoreBoardStackPane);
-//        addScoreBoard(scoreBoardStackPane);
+        showGetPlayerNames(scoreBoardVBoxPane);
         colorBoard();
         setUpPieces();
     }

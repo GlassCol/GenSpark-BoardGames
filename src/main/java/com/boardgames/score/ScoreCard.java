@@ -108,6 +108,11 @@ public class ScoreCard {
                 .toArray();
     }
 
+//    public Score getScoreHistoryOf(String name) {
+//        Score[] scores = getScoreHistoryBy(name);
+//        long wins = Arrays.stream(scores).filter(Score::getIsWin).count();
+//        long loss = wins - scores.length;
+//    }
 
     public void add(Score score) { this.players[0] = score; }
     public Score[] getPlayers() { return this.players; }
