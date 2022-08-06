@@ -51,7 +51,7 @@ public class Score {
         this.gameTime = gameTime;
     }
 
-    /*
+    /**
      * Initialize the arrays for game pieces with -1 index
      * a -1 value indicates empty while positive ints will represent the identity of the piece, e.g. 1's = pawn, 2's = rook
      * */

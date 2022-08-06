@@ -6,12 +6,10 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.Stream;
 
 public class ScoreCard {
 
     private ArrayList<Score> scoreHistory = new ArrayList<>();
-//    private ArrayList<Score> currentScores = new ArrayList<>();
     private Score[] players = new Score[2];
     private long startTime = 0;
 
@@ -54,7 +52,9 @@ public class ScoreCard {
     // find all the scores for the user by name
     public Score[] getScoreHistoryBy(String name) {
         return scoreHistory.stream()
-                .filter(record -> record.getPlayerName().equals(name))
+                .filter(record ->
+                        record.getPlayerName().equalsIgnoreCase(name) ||
+                        record.getOpponentName().equalsIgnoreCase(name))
                 .toArray(Score[]::new);
     }
 
@@ -107,12 +107,6 @@ public class ScoreCard {
                 .mapToInt(Integer::parseInt)
                 .toArray();
     }
-
-//    public Score getScoreHistoryOf(String name) {
-//        Score[] scores = getScoreHistoryBy(name);
-//        long wins = Arrays.stream(scores).filter(Score::getIsWin).count();
-//        long loss = wins - scores.length;
-//    }
 
     public void add(Score score) { this.players[0] = score; }
     public Score[] getPlayers() { return this.players; }
