@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -87,8 +88,8 @@ public class ScoreCardController {
     /**
      * creates panel for displaying the players score stats within a scorecard
      */
-    private GridPane addScorePaneFor(String name, String id) {
-        GridPane gridPane = createGPane(6, 8, 0, 0, 240, 200, 300, 200);
+    private GridPane getAScorePaneFor(String name, String id) {
+        GridPane gridPane = createAGridPane(6, 8, 0, 0, 240, 200, 300, 200);
         gridPane.setId(id);
         return addScoreTo(gridPane, name);
     }
@@ -96,29 +97,49 @@ public class ScoreCardController {
     /**
      * creates the pane for collecting names
      */
-    private GridPane getPaneToCollectNameFor(String textHeading) {
-        GridPane gridPane = createGPane(6, 8, 0, 0, 240, 200, 300, 200);
-        gridPane.setId(textHeading);
+    private GridPane getThePaneToCollectAName(String label) {
+        GridPane gridPane = createAGridPane(6, 8, 0, 0, 240, 200, 300, 200);
+        gridPane.setId(label);
 
         // set font style
         Font sans24B = Font.font("Sans Serif", FontWeight.BOLD, 16);
 
         // create input box
-        Text name = new Text(textHeading);
+        Text name = new Text(label);
         name.setFont(sans24B);
-        gridPane.add(name, 0, 0);
 
         // text field to accept name input
         TextField textField = new TextField();
         textField.setFont(sans24B);
         textField.setPromptText("What is your name ...");
-        gridPane.add(textField, 0, 1);
 
         // button to submit name
         Button button = new Button("SUBMIT");
         button.setFont(sans24B);
-        gridPane.add(button, 0, 2);
+        button.setBackground(Background.fill(Color.TRANSPARENT));
+        button.setOpacity(0.80);
+        button.setDisable(true);
 
+        BorderStroke stroke = new BorderStroke(Color.BLACK,
+                BorderStrokeStyle.SOLID,
+                new CornerRadii(0, true),
+                new BorderWidths(2, 2, 2, 2));
+        button.setBorder(new Border(stroke));
+
+        // add events
+        textField.setOnKeyTyped(e -> {
+            button.setBackground(Background.fill(Color.DARKGREEN));
+            button.setTextFill(Color.WHITE);
+            button.setOpacity(0.80);
+            button.setDisable(false);
+        });
+        button.setOnMouseEntered(e -> button.setOpacity(1));
+        button.setOnMouseExited(e -> button.setOpacity(0.8));
+
+        // add the nodes to the pane
+        gridPane.add(name, 0, 0);
+        gridPane.add(textField, 0, 1);
+        gridPane.add(button, 0, 2);
         return gridPane;
     }
 
@@ -127,7 +148,10 @@ public class ScoreCardController {
      */
     private void setSubmitActionOn(VBox vBox, GridPane gridPane) {
         Button button = (Button) gridPane.getChildren().get(gridPane.getChildren().size()-1);
-        button.setOnAction(e -> showScoreBoard(vBox, gridPane));
+        button.setOnAction(e -> {
+            System.out.println("Button Clicked");
+            showScoreBoard(vBox, gridPane);
+        });
     }
 
     /**
@@ -149,8 +173,8 @@ public class ScoreCardController {
      * adds node elements to the vBox container for collecting names
      */
     private void showViewToCollectPlayerNames(VBox vBox, double bgPaneHeight) {
-        GridPane challenger = getPaneToCollectNameFor("Player 1");
-        GridPane opponent = getPaneToCollectNameFor("Player 2");
+        GridPane challenger = getThePaneToCollectAName("Player 1");
+        GridPane opponent = getThePaneToCollectAName("Player 2");
 
         // set the button actions on each grid pane - requires access to scoreboard fxml field
         setSubmitActionOn(vBox, challenger);
@@ -176,7 +200,7 @@ public class ScoreCardController {
             String id = gridPane.getId(); // get the id before removing grid pane
             vBox.getChildren().remove(gridPane);  // remove the current grid pane from the vBox
 
-            GridPane scoreCard = addScorePaneFor(name, id); // create a new grid pane with id
+            GridPane scoreCard = getAScorePaneFor(name, id); // create a new grid pane with id
             // set the position of the pane
             if (scoreCard.getId().equals("Player 1")) {
                 vBox.getChildren().add(0, scoreCard);  // add the new grid pane to the vBox
@@ -201,7 +225,7 @@ public class ScoreCardController {
     /**
      * create a generic grid pane with col and row constraints
      */
-    public GridPane createGPane(int cols, int rows, int layoutX, int layoutY, int prefWidth, int prefHeight, int maxWidth, int maxHeight) {
+    public GridPane createAGridPane(int cols, int rows, int layoutX, int layoutY, int prefWidth, int prefHeight, int maxWidth, int maxHeight) {
         GridPane gPane = new GridPane();
 
 //        gPane.setGridLinesVisible(true);
@@ -216,8 +240,8 @@ public class ScoreCardController {
         gPane.setVgap(10);
         gPane.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
 
-        addConstraints(gPane, cols, true);
-        addConstraints(gPane, rows, false);
+        addConstraintsTo(gPane, cols, true);
+        addConstraintsTo(gPane, rows, false);
 
         return gPane;
     }
@@ -225,7 +249,7 @@ public class ScoreCardController {
     /**
      * sets general column and row constraints for a grid pane
      */
-    private void addConstraints(GridPane gPane, int qty, boolean isColumn) {
+    private void addConstraintsTo(GridPane gPane, int qty, boolean isColumn) {
         for (int i = 0; i < qty; i++) {
             if (isColumn) {
                 ColumnConstraints cStraint = new ColumnConstraints();
@@ -244,7 +268,7 @@ public class ScoreCardController {
     /**
      * configures the vBox Pane container for the scoreboard view
      */
-    public VBox setVboxProps(VBox vBox, int layoutX, int layoutY, double prefWidth, double prefHeight, double spacing) {
+    public void setVboxProps(VBox vBox, int layoutX, int layoutY, double prefWidth, double prefHeight, double spacing) {
 
 //        Border for debugging
 //        String cssLayout = "-fx-border-color: red;\n" +
@@ -262,7 +286,6 @@ public class ScoreCardController {
         vBox.setPadding(new Insets(90, 20, 20, 20));
         vBox.setAlignment(Pos.TOP_LEFT);
 
-        return vBox;
     }
 
     // GENERAL PANEL CONFIGS AND SETUP

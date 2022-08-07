@@ -6,6 +6,7 @@ import com.boardgames.piece.chesspiece.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -61,8 +62,8 @@ public class ChessDisplayController implements Initializable {
         tileArray[4][0].getPieceList().add(blackKing);
         tileArray[4][7].getPieceList().add(whiteKing);
 
-        board[4][0].setFill(new ImagePattern(blackKing.getImage() ));
-        board[4][7].setFill(new ImagePattern(whiteKing.getImage() ));
+        setABoardTile(blackKing.getImage(), 4, 0);
+        setABoardTile(whiteKing.getImage(), 4, 7);
 
     }
     /**
@@ -83,8 +84,8 @@ public class ChessDisplayController implements Initializable {
         tileArray[3][0].getPieceList().add(blackQueen);
         tileArray[3][7].getPieceList().add(whiteQueen);
 
-        board[3][0].setFill(new ImagePattern(blackQueen.getImage() ));
-        board[3][7].setFill(new ImagePattern(whiteQueen.getImage() ));
+        setABoardTile(blackQueen.getImage(), 3, 0);
+        setABoardTile(whiteQueen.getImage(), 3, 7);
 
     }
     /**
@@ -109,10 +110,10 @@ public class ChessDisplayController implements Initializable {
         tileArray[2][7].getPieceList().add(whiteBishop);
         tileArray[5][7].getPieceList().add(whiteBishop);
 
-        board[2][0].setFill(new ImagePattern(blackBishop.getImage() ));
-        board[5][0].setFill(new ImagePattern(blackBishop.getImage() ));
-        board[2][7].setFill(new ImagePattern(whiteBishop.getImage() ));
-        board[5][7].setFill(new ImagePattern(whiteBishop.getImage() ));
+        setABoardTile(blackBishop.getImage(), 2, 0);
+        setABoardTile(blackBishop.getImage(), 5, 0);
+        setABoardTile(whiteBishop.getImage(), 2, 7);
+        setABoardTile(whiteBishop.getImage(), 5, 7);
 
     }
     /**
@@ -137,10 +138,11 @@ public class ChessDisplayController implements Initializable {
         tileArray[1][7].getPieceList().add(whiteKnight);
         tileArray[6][7].getPieceList().add(whiteKnight);
 
-        board[1][0].setFill(new ImagePattern(blackKnight.getImage() ));
-        board[6][0].setFill(new ImagePattern(blackKnight.getImage() ));
-        board[1][7].setFill(new ImagePattern(whiteKnight.getImage() ));
-        board[6][7].setFill(new ImagePattern(whiteKnight.getImage() ));
+        setABoardTile(blackKnight.getImage(), 1, 0);
+        setABoardTile(blackKnight.getImage(), 6, 0);
+        setABoardTile(whiteKnight.getImage(), 1, 7);
+        setABoardTile(whiteKnight.getImage(), 6, 7);
+
     }
     /**
      * Places all Rooks into their designated tile for the start of the game
@@ -164,10 +166,10 @@ public class ChessDisplayController implements Initializable {
         tileArray[0][7].getPieceList().add(whiteRook);
         tileArray[7][7].getPieceList().add(whiteRook);
 
-        board[0][0].setFill(new ImagePattern(blackRook.getImage() ));
-        board[7][0].setFill(new ImagePattern(blackRook.getImage() ));
-        board[0][7].setFill(new ImagePattern(whiteRook.getImage() ));
-        board[7][7].setFill(new ImagePattern(whiteRook.getImage() ));
+        setABoardTile(blackRook.getImage(), 0, 0);
+        setABoardTile(blackRook.getImage(), 7, 0);
+        setABoardTile(whiteRook.getImage(), 0, 7);
+        setABoardTile(whiteRook.getImage(), 7, 7);
 
     }
     /**
@@ -182,7 +184,7 @@ public class ChessDisplayController implements Initializable {
             tileArray[1][i] = new Tile();
             tileArray[1][i].getPieceList().add(pawn);
 
-            board[i][1].setFill( new ImagePattern(pawn.getImage()));
+            setABoardTile(pawn.getImage(), i, 1);
         }
         for (int i = 0; i < 8; i++) {
             Piece pawn = new Pawn();
@@ -192,7 +194,7 @@ public class ChessDisplayController implements Initializable {
             tileArray[6][i] = new Tile();
             tileArray[6][i].getPieceList().add(pawn);
 
-            board[i][6].setFill(new ImagePattern(pawn.getImage() ));
+            setABoardTile(pawn.getImage(), i, 6);
         }
     }
     /**
@@ -227,6 +229,18 @@ public class ChessDisplayController implements Initializable {
         }
 
     }
+    /**
+     * Set the board tile properties for an image
+     */
+    private void setABoardTile(Image image, int col, int row) {
+        board[col][row].setFill(new ImagePattern(image));
+        board[col][row].setWidth(100);
+        board[col][row].setHeight(100);
+        board[col][row].setStroke(Color.TRANSPARENT);
+        board[col][row].setStrokeType(StrokeType.INSIDE);
+        board[col][row].setStrokeWidth(1);
+    }
+
     /**
      * sets the piece image
      */
