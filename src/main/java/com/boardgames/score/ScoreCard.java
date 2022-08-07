@@ -40,8 +40,6 @@ public class ScoreCard {
 
     /**
      * find all the scores for the user by name
-     * @param name
-     * @return Score[]
      */
     public Score[] getScoreHistoryBy(String name) {
         return scoreHistory.stream()
@@ -53,7 +51,6 @@ public class ScoreCard {
 
     /**
      * transform string data into score objects and add to score history
-     * @param data
      */
     private void dataToScoreHistory(String data) {
         Score score;
@@ -72,8 +69,6 @@ public class ScoreCard {
 
     /**
      * transform each line of the score data into objects
-     * @param records
-     * @return
      */
     private Score transformToScoreObject(String[] records) {
         Score score = new Score("");
@@ -99,8 +94,6 @@ public class ScoreCard {
 
     /**
      * removes the brackets and commas generated from the Arrays.toString() method
-     * @param strData
-     * @return
      */
     private int[] removeArrayCharacters(String strData) {
         return Arrays.stream(strData.split(","))

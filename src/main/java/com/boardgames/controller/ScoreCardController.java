@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  */
 public class ScoreCardController {
 
-    private ScoreCard sCard;
+    private final ScoreCard sCard;
 
     public ScoreCardController() {
         sCard = new ScoreCard();
@@ -36,8 +36,6 @@ public class ScoreCardController {
 
     /**
      * finds all the scores belonging to the name
-     * @param name
-     * @return
      */
     private Score[] findScoresBy(String name) {
         return sCard.getScoreHistoryBy(name);
@@ -45,9 +43,6 @@ public class ScoreCardController {
 
     /**
      * adds score history when name of player exists and their accum win loss stats
-     * @param gridPane
-     * @param name
-     * @return
      */
     private GridPane addScoreTo(GridPane gridPane, String name) {
         Score[] scores = findScoresBy(name);
@@ -91,11 +86,8 @@ public class ScoreCardController {
 
     /**
      * creates panel for displaying the players score stats within a scorecard
-     * @param name
-     * @param id
-     * @return Grid Pane
      */
-    public GridPane addScorePaneFor(String name, String id) {
+    private GridPane addScorePaneFor(String name, String id) {
         GridPane gridPane = createGPane(6, 8, 0, 0, 240, 200, 300, 200);
         gridPane.setId(id);
         return addScoreTo(gridPane, name);
@@ -103,10 +95,8 @@ public class ScoreCardController {
 
     /**
      * creates the pane for collecting names
-     * @param textHeading
-     * @return
      */
-    public GridPane getPaneToCollectNameFor(String textHeading) {
+    private GridPane getPaneToCollectNameFor(String textHeading) {
         GridPane gridPane = createGPane(6, 8, 0, 0, 240, 200, 300, 200);
         gridPane.setId(textHeading);
 
@@ -120,7 +110,7 @@ public class ScoreCardController {
 
         // text field to accept name input
         TextField textField = new TextField();
-        textField.setFont(sans24B);;
+        textField.setFont(sans24B);
         textField.setPromptText("What is your name ...");
         gridPane.add(textField, 0, 1);
 
@@ -134,21 +124,14 @@ public class ScoreCardController {
 
     /**
      * sets the actions of the button node belonging to the grid pane
-     * @param vBox
-     * @param gridPane
      */
     private void setSubmitActionOn(VBox vBox, GridPane gridPane) {
         Button button = (Button) gridPane.getChildren().get(gridPane.getChildren().size()-1);
-        button.setOnAction(e -> {
-            showScoreBoard(vBox, gridPane);
-        });
+        button.setOnAction(e -> showScoreBoard(vBox, gridPane));
     }
 
     /**
      * returns the string value of the text field node of the pane
-     * @param pane
-     * @return String
-     * @param <T> extends Pane
      */
     private <T extends Pane> String getTextFieldValueFrom(T pane) {
         List<Node> nodes = pane.getChildren();
@@ -164,8 +147,6 @@ public class ScoreCardController {
 
     /**
      * adds node elements to the vBox container for collecting names
-     * @param vBox
-     * @param bgPaneHeight
      */
     private void showViewToCollectPlayerNames(VBox vBox, double bgPaneHeight) {
         GridPane challenger = getPaneToCollectNameFor("Player 1");
@@ -186,10 +167,8 @@ public class ScoreCardController {
 
     /**
      * show and adds elements to the Vbox container for a scorecard belonging to a name
-     * @param vBox
-     * @param gridPane
      */
-    public void showScoreBoard(VBox vBox, GridPane gridPane) {
+    private void showScoreBoard(VBox vBox, GridPane gridPane) {
         // gets the text value from the text field
         String name = getTextFieldValueFrom(gridPane);
 
@@ -210,8 +189,6 @@ public class ScoreCardController {
 
     /**
      * calls the method for showing the view to collect names
-     * @param vBox
-     * @param bgPaneHeight
      */
     public void showScoreBoard(VBox vBox, double bgPaneHeight)  {
         showViewToCollectPlayerNames(vBox, bgPaneHeight);
@@ -223,15 +200,6 @@ public class ScoreCardController {
 
     /**
      * create a generic grid pane with col and row constraints
-     * @param cols
-     * @param rows
-     * @param layoutX
-     * @param layoutY
-     * @param prefWidth
-     * @param prefHeight
-     * @param maxWidth
-     * @param maxHeight
-     * @return
      */
     public GridPane createGPane(int cols, int rows, int layoutX, int layoutY, int prefWidth, int prefHeight, int maxWidth, int maxHeight) {
         GridPane gPane = new GridPane();
@@ -256,9 +224,6 @@ public class ScoreCardController {
 
     /**
      * sets general column and row constraints for a grid pane
-     * @param gPane
-     * @param qty
-     * @param isColumn
      */
     private void addConstraints(GridPane gPane, int qty, boolean isColumn) {
         for (int i = 0; i < qty; i++) {
@@ -278,13 +243,6 @@ public class ScoreCardController {
 
     /**
      * configures the vBox Pane container for the scoreboard view
-     * @param vBox
-     * @param layoutX
-     * @param layoutY
-     * @param prefWidth
-     * @param prefHeight
-     * @param spacing
-     * @return
      */
     public VBox setVboxProps(VBox vBox, int layoutX, int layoutY, double prefWidth, double prefHeight, double spacing) {
 

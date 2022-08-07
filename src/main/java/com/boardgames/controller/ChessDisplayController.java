@@ -227,7 +227,9 @@ public class ChessDisplayController implements Initializable {
         }
 
     }
-
+    /**
+     * sets the piece image
+     */
     public <T extends Piece> void setPieceImage(T piece, String pieceName, String pieceColor) {
         piece.setImage("src\\main\\resources\\com\\boardgames\\graphics\\"+pieceColor+"_"+pieceName+".png");
     }

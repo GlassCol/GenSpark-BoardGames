@@ -5,7 +5,8 @@ import java.util.Arrays;
 import java.util.stream.IntStream;
 
 /**
- * Score will hold the players score state while playing the game
+ * Score will hold the players score
+ * @author pygna
  */
 public class Score {
 
