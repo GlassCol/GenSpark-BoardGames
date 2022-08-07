@@ -6,7 +6,6 @@ import com.boardgames.piece.chesspiece.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -238,7 +237,6 @@ public class ChessDisplayController implements Initializable {
         boardGridPane.setPadding(new Insets(0,0,0,0));
         colorBoard();
         setUpPieces();
-
 
         ScoreCardController scController = new ScoreCardController();
         scController.showScoreBoard(scoreBoardVBoxPane, boardGridPane.getHeight());

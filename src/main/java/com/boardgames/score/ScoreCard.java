@@ -7,6 +7,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * The Scorecard can contain the score and history of the game players
+ * @author pygna
+ */
 public class ScoreCard {
 
     private ArrayList<Score> scoreHistory = new ArrayList<>();
@@ -18,21 +22,6 @@ public class ScoreCard {
     private int[] capturedPieces;
     private int[] lostPieces;
     private boolean timerOn = false;
-
-    // During a typical game
-    // 1. requires the data of player 1
-    // 2. requires the data of player 2
-    // 5. at end of the game, score the outcome
-    // 6. at the end of the game, write scores to a file
-    // 7. during the game, add pieces to captured pieces array
-    // 8. during the game, add pieces to the lost pieces array
-    // 9. during the game, show the captured pieces
-    // 10. during the game, show the lost pieces
-    // 11. during the game, show the current game time
-    // 12. during the game, while pause, turn the timer off or on
-    // 13. during the game, show the players name
-    // 14. at end of the game, format game data for writing
-    // 15. on game start, read data from existing game score file
 
     // CONSTRUCTORS
 
@@ -49,7 +38,11 @@ public class ScoreCard {
 
     // PUBLIC METHODS
 
-    // find all the scores for the user by name
+    /**
+     * find all the scores for the user by name
+     * @param name
+     * @return Score[]
+     */
     public Score[] getScoreHistoryBy(String name) {
         return scoreHistory.stream()
                 .filter(record ->
@@ -58,7 +51,10 @@ public class ScoreCard {
                 .toArray(Score[]::new);
     }
 
-    // transform string data into score objects and add to score history
+    /**
+     * transform string data into score objects and add to score history
+     * @param data
+     */
     private void dataToScoreHistory(String data) {
         Score score;
 
@@ -74,7 +70,11 @@ public class ScoreCard {
         }
     }
 
-    // transform each line of the score data into objects
+    /**
+     * transform each line of the score data into objects
+     * @param records
+     * @return
+     */
     private Score transformToScoreObject(String[] records) {
         Score score = new Score("");
 
@@ -97,7 +97,11 @@ public class ScoreCard {
         return score;
     }
 
-    // removes the brackets and commas generated from the Arrays.toString() method
+    /**
+     * removes the brackets and commas generated from the Arrays.toString() method
+     * @param strData
+     * @return
+     */
     private int[] removeArrayCharacters(String strData) {
         return Arrays.stream(strData.split(","))
                 .map(e -> e.replace("[", "")
@@ -107,6 +111,7 @@ public class ScoreCard {
                 .mapToInt(Integer::parseInt)
                 .toArray();
     }
+
 
     public void add(Score score) { this.players[0] = score; }
     public Score[] getPlayers() { return this.players; }
@@ -122,26 +127,19 @@ public class ScoreCard {
     }
 
 
-    // How do we score the game?
-    public void scoreGame() {
-
-    }
-
     // FILE INPUT OUTPUT
 
-    public File getScoreFileName() {
+    protected File getScoreFileName() {
         return new File("scores.txt");
     }
 
-    public void writeScores(String data) {
+    protected void writeScores(String data) {
         FileUtil.writeToAFile(data, getScoreFileName());
     }
 
-    public String readScores() {
+    protected String readScores() {
         return FileUtil.readAFile(getScoreFileName());
     }
-
-
 
 
 }

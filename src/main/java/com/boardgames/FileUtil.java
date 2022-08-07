@@ -8,7 +8,6 @@ import java.nio.file.NoSuchFileException;
 
 public class FileUtil {
 
-
     public static void writeToAFile(String data, File fileName) {
         boolean append = false;
 
@@ -24,7 +23,6 @@ public class FileUtil {
         } catch (DirectoryNotEmptyException x) {
             System.err.format("%s not empty%n", fileName.getAbsolutePath());
         } catch (IOException x) {
-            // File permission problems are caught here.
             System.err.println(x);
         }
     }
@@ -51,7 +49,6 @@ public class FileUtil {
         } catch (DirectoryNotEmptyException x) {
             System.err.format("%s not empty%n", fileName.getAbsolutePath());
         } catch (IOException x) {
-            // File permission problems are caught here.
             System.err.println(x);
         }
 
@@ -61,14 +58,12 @@ public class FileUtil {
     public static Image loadImageFromAFile(String path) {
 
         File file = new File(path);
-        String absPath = file.getAbsolutePath();
         InputStream inputStream;
         if (file.exists()) {
             try {
                 inputStream = new FileInputStream(file.getAbsolutePath());
                 return new Image(inputStream);
             } catch (IOException x) {
-                // File permission problems are caught here.
                 System.err.println(x);
             }
         }

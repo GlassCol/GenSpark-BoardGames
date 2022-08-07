@@ -4,7 +4,9 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
-
+/**
+ * Score will hold the players score state while playing the game
+ */
 public class Score {
 
     private String playerName;
@@ -20,12 +22,8 @@ public class Score {
 
     // CONSTRUCTORS
 
-    public Score(Score score) {
-        this(score.playerName, score.opponentName);}
-
     public Score(String playerName) {
         this.playerName = playerName;
-        this.opponentName = opponentName;
         this.capturedPieces = fillTheArray();
         this.lostPieces = fillTheArray();
     }
@@ -37,19 +35,6 @@ public class Score {
         this.lostPieces = fillTheArray();
     }
 
-    /* use this constructor for existing data */
-    public Score(String playerName, String opponentName, boolean isWin, int[] capturedPieces, int[] lostPieces,
-                 LocalDateTime date, long startTime, long endTime, long gameTime) {
-        this.playerName = playerName;
-        this.opponentName = opponentName;
-        this.isWin = isWin;
-        this.capturedPieces = capturedPieces;
-        this.lostPieces = lostPieces;
-        this.date = date;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.gameTime = gameTime;
-    }
 
     /**
      * Initialize the arrays for game pieces with -1 index
@@ -100,7 +85,6 @@ public class Score {
     public void setIsWin(boolean torf) { this.isWin = torf; }
     public void setCapturedPieces(int[] capturedPieces) { this.capturedPieces = capturedPieces;}
     public void setLostPieces(int[] lostPieces) { this.lostPieces = lostPieces;}
-    public void addNext(int pieceId, int[] array) {}
     public void setDate(LocalDateTime localDateTime) { this.date = localDateTime; }
     public void setStartTime(long startTime) { this.startTime = startTime; }
     public void setEndTime(long endTime) { this.endTime = endTime; }
