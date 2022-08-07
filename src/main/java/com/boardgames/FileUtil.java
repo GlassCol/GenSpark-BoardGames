@@ -1,9 +1,10 @@
 package com.boardgames;
 
+import javafx.scene.image.Image;
+
 import java.io.*;
 import java.nio.file.DirectoryNotEmptyException;
 import java.nio.file.NoSuchFileException;
-import java.nio.file.Path;
 
 public class FileUtil {
 
@@ -27,7 +28,6 @@ public class FileUtil {
             System.err.println(x);
         }
     }
-
 
     public static String readAFile(File fileName) {
         String data =  "";
@@ -56,6 +56,23 @@ public class FileUtil {
         }
 
         return data;
+    }
+
+    public static Image loadImageFromAFile(String path) {
+
+        File file = new File(path);
+        String absPath = file.getAbsolutePath();
+        InputStream inputStream;
+        if (file.exists()) {
+            try {
+                inputStream = new FileInputStream(file.getAbsolutePath());
+                return new Image(inputStream);
+            } catch (IOException x) {
+                // File permission problems are caught here.
+                System.err.println(x);
+            }
+        }
+        return null;
     }
 
 }

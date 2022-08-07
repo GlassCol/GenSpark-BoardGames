@@ -1,6 +1,8 @@
 package com.boardgames.piece;
 
+import com.boardgames.FileUtil;
 import com.boardgames.Tile;
+import javafx.scene.image.Image;
 
 /**
  * Abstract class to be used in iteration during game time
@@ -13,6 +15,7 @@ public abstract class Piece {
     private int YCoordinate;
     private int numValue;
     private String color;
+    private Image image;
 
     public String getColor() {
         return color;
@@ -20,6 +23,14 @@ public abstract class Piece {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public void setImage(String path) {
+        this.image = FileUtil.loadImageFromAFile(path);
+    }
+
+    public Image getImage() {
+        return this.image;
     }
 
     @Override
