@@ -64,7 +64,7 @@ public class ScoreCardController {
         Label lblLoss = setUpLabel("Losses");
         Label lblPercent = setUpLabel("w/l %");
 
-        Text txtName = setUpText(name);
+        Text txtName = setUpText( String.valueOf(name.charAt(0)).toUpperCase() + name.substring(1) );
         Text txtWins = setUpText(String.format("%d", (int) wins));
         Text txtLosses = setUpText(String.format("%d", (int) losses));
         Text txtPercent = setUpText(String.format("%.2f", percent));
